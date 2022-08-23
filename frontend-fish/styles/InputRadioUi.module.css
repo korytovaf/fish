@@ -1,0 +1,11 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: start;
+    gap: .7em;
+    padding-left: 16px;
+}
+
+.listItem {
+    /*margin-left: .6em;*/
+}

@@ -1,0 +1,32 @@
+.form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /*grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));*/
+    gap: 3em;
+    margin: 2em;
+    padding: 2em;
+    border-radius: 1em;
+    background-color: var(--color-grey-main);
+}
+
+@media (max-width: 768px) {
+    .form {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 425px) {
+    .form {
+        background-color: transparent;
+    }
+}
+
+.header_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    margin-bottom: 1em;
+}

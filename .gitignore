@@ -1,0 +1,10 @@
+.idea
+
+/backend-fish/node_modules/
+/backend-fish/.env
+
+/frontend-fish/node_modules/
+/frontend-fish/.next
+
+/images/
+/upload/

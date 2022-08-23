@@ -1,0 +1,32 @@
+.header {
+  padding: 2em 0;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  margin-right: auto;
+  margin-left: 25px;
+  width: 3em;
+}
+
+.basket {
+  width: 35px;
+  height: 36px;
+  margin-left: 3em;
+}
+
+.nav_wrapper {
+  display: flex;
+}
+
+@media (max-width: 800px) {
+  .nav_wrapper {
+    flex-direction: row-reverse;
+    margin-right: 10px;
+  }
+}

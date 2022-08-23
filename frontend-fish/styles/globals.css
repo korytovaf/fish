@@ -1,0 +1,108 @@
+/*@font-face {*/
+/*  font-family: Montserrat, sans-serif;*/
+/*  src: url(../public/fonts/Montserrat-Thin.woff);*/
+/*  font-weight: 100;*/
+/*  font-style: normal;*/
+/*}*/
+/*@font-face {*/
+/*  font-family: Montserrat, sans-serif;*/
+/*  src: url(public/fonts/Montserrat-ExtraLight.woff);*/
+/*  font-weight: 200;*/
+/*  font-style: normal;*/
+/*}*/
+
+/*@font-face {*/
+/*  font-family: Montserrat, sans-serif;*/
+/*  src: url(public/fonts/Montserrat-Light.woff);*/
+/*  font-weight: 300;*/
+/*  font-style: normal;*/
+/*}*/
+
+:root {
+  --radius: .6em;
+
+  --color-grey-main: #eaeaea;
+  --color-grey-lite: #f5f5f5;
+  --color-grey-dark: #b9b9b9;
+
+  --color-accent-main: rgb(255, 87, 51);
+  --color-accent-lite: rgb(255, 230, 224);
+
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Montserrat, sans-serif;
+  font-weight: 200;
+  font-size: 18px;
+  height: 100%;
+}
+
+body > div {
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  padding: 0;
+  margin: 0;
+}
+
+input, textarea, button {
+  font-family: Montserrat, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: var(--color-grey-dark);
+    background: black;
+  }
+}
+
+button {
+  height: 40px;
+  width: auto;
+  padding: 0 2em;
+  border-radius: .6em;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+button:hover {
+  color: white;
+  background-color: black;
+}
+
+button:disabled {
+  border: 1px solid var(--color-grey-lite);
+  background-color: var(--color-grey-lite);
+  color: var(--color-grey-dark);
+  cursor: default;
+}
+
+@media (max-width: 500px) {
+  html,
+  body {
+    font-size: 14px;
+  }
+
+  input, textarea, button {
+    font-size: 16px;
+  }
+}
