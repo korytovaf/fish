@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
   if (!file) return res.json({error: 'Не корректное имя ввода'})
   const newFileName = encodeURI(Date.now() + '-' + file.name)
 
-  const pathLocal = path.resolve(path.join(__dirname, '../'))
+  const pathLocal = path.resolve(path.join(__dirname, '../../'))
 
   file.mv(`${pathLocal}/upload/${newFileName}`, err => {
     if (err) {
@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
 // /api/v1/upload
 router.get('/:fileName', async (req, res) => {
   try {
-    const filePath = path.resolve(path.join(__dirname, '../') + '/upload/' + req.params.fileName)
+    const filePath = path.resolve(path.join(__dirname, '../../') + '/upload/' + req.params.fileName)
 
     fs.access(filePath, fs.constants.R_OK, (err) => {
       if (err) {
