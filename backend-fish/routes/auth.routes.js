@@ -10,11 +10,6 @@ const createToken = (id, isAuth) => {
   return jwt.sign(
     { userId: id, isAuth },
     process.env.JWT_TOKEN_SECRET,
-    // { expiresIn: '1h' },
-    // (err, token) => {
-    //   if (err) throw err; //ошибка создания токена
-    //   console.log(token)
-    // }
   )
 };
 
@@ -45,7 +40,7 @@ router.post(
       await user.save();
 
       const token = createToken(user.id, false);
-      response.status(201).json({ token, userId: user.id, nameUser: user.nameUser, message: 'Пользователь создан'})
+      response.status(201).json({ token, user })
 
     } catch (e) {
       console.log(e)
@@ -84,12 +79,12 @@ router.post(
         return response.status(400).json({ message: 'Не правильные имя пользователя или пароль'})
       }
       const token = createToken(user.id, user.isAuth);
-      response.status(200).json({ token });
+      response.status(200).json({ token, user });
 
     } catch (e) {
       console.log(e)
       response.status(500).json({ message: 'Ошибка входа! Что-то пошло не так'})
     }
-})
+  })
 
 module.exports = router
