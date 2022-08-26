@@ -19,7 +19,7 @@ import InputFile from "../ui/inputFile";
 import Image from "next/image";
 import image_placeholder from "../public/icons/image_placeholder.svg";
 import {img, img_wrapper} from "../styles/Card.module.css";
-// import useFetchApi from "../hooks/useFetchApi";
+import useAuth from "../hooks/useAuth";
 
 
 const listBtnRadio = [
@@ -29,8 +29,8 @@ const listBtnRadio = [
 
 
 export default function FormAddedProduct() {
+  const { user } = useAuth();
   const refFile = useRef();
-  // const { requestApi, load, errorApi } = useFetchApi();
   const name = useInput("", {isEmpty: true});
   const price = useInput("", {isEmpty: true, isOnlyNumber: true});
   const description = useInput("", {isEmpty: true, minLength: 10});
@@ -60,7 +60,7 @@ export default function FormAddedProduct() {
       unit,
       images
     }
-    const product = await fetchData('post', 'products', newProduct);
+    const product = await fetchData('post', 'products', newProduct, user.token);
     if (product.status === 200) clearForm();
   }
 
@@ -69,7 +69,7 @@ export default function FormAddedProduct() {
     if (e.target && e.target.files[0]) formData.append('img', e.target.files[0]);
 
     setLoadUploadFile(true);
-    const upload = await uploadFile(formData);
+    const upload = await uploadFile(formData, user.token);
     setImages(upload.data.fileName);
     setLoadUploadFile(false)
   }
@@ -83,7 +83,6 @@ export default function FormAddedProduct() {
   }, [name, price, description, images]);
 
   const imageUrl = process.env.API_URL + "upload/" + images;
-  // console.log(images)
 
   return (
     <form className={form}>
