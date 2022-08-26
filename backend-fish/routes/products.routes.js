@@ -35,7 +35,7 @@ router.get('/:id', async (req, res) => {
 // Создать новый продукт - /api/v1/products
 router.post('/', isAdmin, async (req, res) => {
   try {
-    const pathLocal = path.resolve(path.join(__dirname, '../'))
+    const pathLocal = path.resolve(path.join(__dirname, '../../'))
     let fs = require('fs');
 
     //копируем изображение в папку images

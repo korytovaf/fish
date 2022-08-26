@@ -36,7 +36,7 @@ router.post('/', isAdmin, async (req, res) => {
 // /api/v1/upload
 router.get('/:fileName', async (req, res) => {
   try {
-    const filePath = path.resolve(path.join(__dirname, '../../') + '/upload/' + req.params.fileName)
+    const filePath = path.resolve(path.join(__dirname, '../../') + '/images/' + req.params.fileName)
 
     fs.access(filePath, fs.constants.R_OK, (err) => {
       if (err) {
