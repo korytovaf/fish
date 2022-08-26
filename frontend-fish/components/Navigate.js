@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { link, navigate } from "../styles/Navigate.module.css";
-import { useAuthContext } from "../contexts/useAuth";
+import useAuth from "../hooks/useAuth";
 
 export default function Navigate() {
-
-  const { isAuth } = useAuthContext();
+  const { user } = useAuth();
 
   return (
     <div className={navigate}>
@@ -12,7 +11,7 @@ export default function Navigate() {
         <Link href="/"><a className={link}>Главная</a></Link>
         <Link href="/about"><a className={link}>О нас</a></Link>
         <Link href="/payment"><a className={link}>Доставка и оплата</a></Link>
-        {isAuth && <Link href="/admin"><a className={link}>Админ панель</a></Link>}
+        {user.isAdmin && <Link href="/admin"><a className={link}>Админ панель</a></Link>}
       </nav>
     </div>
   )

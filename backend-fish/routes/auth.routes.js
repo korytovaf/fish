@@ -6,9 +6,9 @@ const { check, validationResult } = require('express-validator');
 const User = require('../models/Users');
 const router = Router();
 
-const createToken = (id, isAuth) => {
+const createToken = (id, isAdmin) => {
   return jwt.sign(
-    { userId: id, isAuth },
+    { userId: id, isAdmin },
     process.env.JWT_TOKEN_SECRET,
   )
 };
@@ -78,8 +78,9 @@ router.post(
       if (!isMath) {
         return response.status(400).json({ message: 'Не правильные имя пользователя или пароль'})
       }
-      const token = createToken(user.id, user.isAuth);
-      response.status(200).json({ token, user });
+
+      const token = createToken(user.id, user.isAdmin);
+      response.status(200).json({ token, name: user.name, email: user.email, isAdmin: user.isAdmin });
 
     } catch (e) {
       console.log(e)

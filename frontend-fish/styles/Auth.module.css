@@ -1,0 +1,22 @@
+.btn_group_submit {
+    display: flex;
+}
+
+.btn_link {
+    margin-left: auto;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    color: var(--color-accent-main);
+}
+
+.btn_link:hover {
+    background-color: transparent;
+    color: var(--color-accent-dark);
+}
+
+.error_message {
+    font-size: 14px;
+    color: var(--color-accent-main);
+}

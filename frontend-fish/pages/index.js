@@ -13,9 +13,15 @@ export default function Home({ products }) {
 
 
 export async function getServerSideProps() {
+
   const request = await fetch(process.env.API_URL + "products")
   const products = await request.json();
 
+  if (!products) {
+    return {
+      notFound: true,
+    };
+  }
   return {
     props: { products },
   }

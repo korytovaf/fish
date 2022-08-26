@@ -18,10 +18,9 @@ export default function InputFile({
     <div>
       <button className={button} onClick={handlePick}>
         {isload
-          ? <Image src={spinner} height={40} width={40} />
+          ? <Image src={spinner} height={40} width={40} alt="loading..." />
           : <span>Загрузить изображение</span>
         }
-
       </button>
       <input
         className={hidden}
