@@ -10,7 +10,7 @@ const router = Router()
 router.get('/:id', async (req, res) => {
   try {
     const { name } = await Images.findOne({ _id: req.params.id })
-    const filePath = path.resolve(path.join(__dirname, '../') + '/images/' + name)
+    const filePath = path.resolve(path.join(__dirname, '../../') + '/images/' + name)
 
     fs.access(filePath, fs.constants.R_OK, (err) => {
       if (err) {
