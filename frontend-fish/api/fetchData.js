@@ -1,7 +1,8 @@
 import axios from "axios";
 
+const user = localStorage.getItem("fish-user")
+
 export const fetchData = async (method, endpoint, data) => {
-  const token = localStorage.getItem("fish-token")
   try {
     return await axios({
       method: method,
@@ -9,7 +10,7 @@ export const fetchData = async (method, endpoint, data) => {
       data: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${user.token}`,
       },
     });
   } catch (e) {
@@ -25,6 +26,7 @@ export const uploadFile = async (formData) => {
       data: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${user.token}`,
       }
     })
   } catch (e) {

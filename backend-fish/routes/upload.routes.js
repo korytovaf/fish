@@ -2,11 +2,13 @@ const { Router } = require('express')
 const router = Router()
 const path = require('path')
 const fs = require('fs')
+const isAdmin = require('../middleware/isAdmin.middleware')
+
 
 
 
 // /api/v1/upload
-router.post('/', async (req, res) => {
+router.post('/', isAdmin, async (req, res) => {
 
   if (!req.files) {
     return res.status(404).json({messages: 'Файл отсутствует'})
