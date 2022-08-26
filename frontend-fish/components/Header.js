@@ -1,22 +1,43 @@
-import { header, basket, wrapper, logo, nav_wrapper } from '../styles/Header.module.css'
+import { header, basket, wrapper_right, wrapper, logo, nav_wrapper, basket_count } from '../styles/Header.module.css'
 import Navigate from "./Navigate";
 import Image from "next/image";
 import logoSvg from "../public/icons/fish_logo.svg"
 import basketIcon from "../public/icons/basket-icon.svg"
 import NavigateMobile from "./NavigateMobile";
+import Link from "next/link";
+import {useState} from "react";
+import useAuth from "../hooks/useAuth";
+import {link} from "../styles/Navigate.module.css";
+import {useRouter} from "next/router";
 
 export default function Header() {
+  const { isAuth, logout } = useAuth();
+  const router = useRouter();
+
+  const [countProduct, setCountProduct] = useState(0)
+
+  const handlerLogout = () => {
+    logout()
+  }
+
   return (
     <header className={header}>
       <div className={wrapper}>
         <div className={logo}>
-          <Image src={logoSvg} />
+          <Image src={logoSvg} alt="logo"/>
         </div>
         <div className={nav_wrapper}>
           <Navigate />
           <NavigateMobile />
-          <div className={basket}>
-            <Image src={basketIcon} />
+          <div className={wrapper_right}>
+            {isAuth
+              ? <Link href="/"><a className={link} onClick={handlerLogout}>Выйти</a></Link>
+              : router.pathname !== "/auth" && <Link href="/auth"><a >Войти</a></Link>
+            }
+            <div className={basket}>
+              <Image src={basketIcon} alt="basket" />
+              {countProduct > 0 && <div className={basket_count}>{countProduct}</div>}
+            </div>
           </div>
         </div>
       </div>

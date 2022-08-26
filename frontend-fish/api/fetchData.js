@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const fetchData = async (method, endpoint, data) => {
+  const token = localStorage.getItem("fish-token")
   try {
     return await axios({
       method: method,
@@ -8,11 +9,11 @@ export const fetchData = async (method, endpoint, data) => {
       data: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${token ? token : tokenClient}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   } catch (e) {
-    return { status: e.response.status, message: e.response.statusText };
+    return { status: e.response.status, message: e.response.data.message };
   }
 };
 
@@ -27,6 +28,6 @@ export const uploadFile = async (formData) => {
       }
     })
   } catch (e) {
-    return { status: e.response.status, message: e.response.statusText };
+    return { status: e.response.status, message: e.response.data.message };
   }
 };

@@ -19,6 +19,7 @@ import InputFile from "../ui/inputFile";
 import Image from "next/image";
 import image_placeholder from "../public/icons/image_placeholder.svg";
 import {img, img_wrapper} from "../styles/Card.module.css";
+// import useFetchApi from "../hooks/useFetchApi";
 
 
 const listBtnRadio = [
@@ -28,8 +29,8 @@ const listBtnRadio = [
 
 
 export default function FormAddedProduct() {
-
   const refFile = useRef();
+  // const { requestApi, load, errorApi } = useFetchApi();
   const name = useInput("", {isEmpty: true});
   const price = useInput("", {isEmpty: true, isOnlyNumber: true});
   const description = useInput("", {isEmpty: true, minLength: 10});
@@ -91,10 +92,10 @@ export default function FormAddedProduct() {
         <div className={card}>
           <div className={img_wrapper}>
             {images
-              ? <Image className={img} src={imageUrl} layout="responsive" width={300} height={300}/>
-              : <div className={placeholder_wrapper}>
-                  <Image src={image_placeholder} width={100} height={100} />
-                </div>
+              ? (<Image className={img} src={imageUrl} layout="responsive" width={300} height={300} alt={name.value} />)
+              : (<div className={placeholder_wrapper}>
+                  <Image src={image_placeholder} width={100} height={100} alt="image placeholder" />
+                </div>)
             }
           </div>
           <div className={wrapper_description}>
