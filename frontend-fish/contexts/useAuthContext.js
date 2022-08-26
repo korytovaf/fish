@@ -7,13 +7,10 @@ export function AuthContextWrapper({ children }) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const token = localStorage.getItem("fish-token")
-      if (token) {
+      const user = localStorage.getItem("fish-user")
+      if (user) {
         setIsAuth(true)
-      }
-      const userLocalStorage = localStorage.getItem("fish-user")
-      if (userLocalStorage) {
-        setUser(JSON.parse(userLocalStorage))
+        setUser(JSON.parse(user))
       }
     }
   }, [])

@@ -31,7 +31,6 @@ export default function Login({ setIsLogin }) {
       password: password.value,
     }
     const user = await requestApi("post", "auth/login", newUser);
-
     if (user) {
       login(user)
       clearForm()
