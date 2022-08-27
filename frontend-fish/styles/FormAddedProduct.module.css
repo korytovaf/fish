@@ -1,9 +1,10 @@
 .form {
     display: grid;
-    /*grid-template-columns: 1fr 1fr;*/
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr 1.5fr;
+    /*grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));*/
     gap: 3em;
-    margin: 2em;
+    max-width: 1000px;
+    margin: 2em auto;
     padding: 2em;
     border-radius: 1em;
     background-color: var(--color-grey-main);
@@ -37,7 +38,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 22px;
-    padding: 2em;
+    padding: 2.5em 2em;
 }
 
 .card {

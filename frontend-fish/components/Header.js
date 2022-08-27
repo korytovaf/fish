@@ -5,16 +5,15 @@ import logoSvg from "../public/icons/fish_logo.svg"
 import basketIcon from "../public/icons/basket-icon.svg"
 import NavigateMobile from "./NavigateMobile";
 import Link from "next/link";
-import {useState} from "react";
 import useAuth from "../hooks/useAuth";
 import {link} from "../styles/Navigate.module.css";
 import {useRouter} from "next/router";
+import useBasket from "../hooks/useBasket";
 
 export default function Header() {
   const { isAuth, logout } = useAuth();
   const router = useRouter();
-
-  const [countProduct, setCountProduct] = useState(0)
+  const { basketProducts } = useBasket();
 
   const handlerLogout = () => {
     logout()
@@ -36,7 +35,7 @@ export default function Header() {
             }
             <div className={basket}>
               <Image src={basketIcon} alt="basket" />
-              {countProduct > 0 && <div className={basket_count}>{countProduct}</div>}
+              {basketProducts.length > 0 && <div className={basket_count}>{basketProducts.length}</div>}
             </div>
           </div>
         </div>

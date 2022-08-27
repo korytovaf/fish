@@ -6,7 +6,6 @@ import {useRouter} from "next/router";
 export default function Admin() {
   const { user } = useAuth();
   const router = useRouter();
-  console.log(user.isAdmin)
 
   useEffect(() => {
     if (!user.isAdmin) router.push("/")
