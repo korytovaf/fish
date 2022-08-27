@@ -4,12 +4,12 @@ const { Router } = require('express')
 const Orders = require("../models/Orders")
 const OrdersCount = require("../models/OrdersCount")
 const router = Router()
-// const TelegramApi = require('node-telegram-bot-api')
+const TelegramApi = require('node-telegram-bot-api')
 
-// const bot = new TelegramApi(process.env.TG_BOT_TOKEN, {polling: true})
-// bot.on('message', msg => {
-//   console.log(msg)
-// })
+const bot = new TelegramApi(process.env.TG_BOT_TOKEN, {polling: true})
+bot.on('message', msg => {
+  console.log(msg)
+})
 
 // /api/v1/order
 router.get('/', async (req, res) => {
@@ -56,21 +56,21 @@ router.post('/', async (req, res) => {
     const newOrder = new Orders({ ...req.body, count: ordersCount ? ordersCount.count + 1 : 1 })
     const order = await newOrder.save()
 
-    // // Отправляем заказ в телеграм чат
-    // if (order) {
-    //   const listProducts = []
-    //   order.products_basket.map((item, index )=> {
-    //     const text = `${index + 1}. ${item.name} - ${item.volume}${item.unit}.`
-    //     listProducts.push(text)
-    //   })
-    //   const messages =
-    //     'ЗАКАЗ - ' + order.count + '\n' +
-    //     listProducts.join('\n') + '\n' +
-    //     'Покупатель - ' + order.consumer + '\n' +
-    //     'Телефон - ' + order.phone + '\n' +
-    //     'Адрес доставки - ' + order.address + '\n\n'
-    //   await bot.sendMessage(process.env.TG_CHAT_ID, messages)
-    // }
+    // Отправляем заказ в телеграм чат
+    if (order) {
+      const listProducts = []
+      order.products_basket.map((item, index )=> {
+        const text = `${index + 1}. ${item.name} - ${item.volume}${item.unit}.`
+        listProducts.push(text)
+      })
+      const messages =
+        'ЗАКАЗ - ' + order.count + '\n' +
+        listProducts.join('\n') + '\n' +
+        'Покупатель - ' + order.consumer + '\n' +
+        'Телефон - ' + order.phone + '\n' +
+        'Адрес доставки - ' + order.address + '\n\n'
+      await bot.sendMessage(process.env.TG_CHAT_ID, messages)
+    }
 
     res.status(200).json(order)
   } catch (e) {

@@ -20,6 +20,7 @@
 
 :root {
   --radius: .6em;
+  --radius-s: .3em;
 
   --color-grey-main: #eaeaea;
   --color-grey-lite: #f5f5f5;
