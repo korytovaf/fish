@@ -39,11 +39,12 @@ export default function useBasket() {
     localStorage.setItem("basket", JSON.stringify(basketProducts.filter(i => i._id !== product._id)))
   }
 
-  // const totalPrice = () => {
-  //   setTotalPriceBasket(basketProducts.reduce((sum, item) => sum + item.volume * item.price, 0))
-  // }
+  const clearBasket = () => {
+    setBasketProducts([])
+    localStorage.removeItem("basket");
+  }
 
   return {
-    addProduct, basketProducts, removeProductVolume, removeProduct
+    addProduct, basketProducts, removeProductVolume, removeProduct, clearBasket
   }
 }

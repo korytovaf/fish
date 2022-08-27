@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 2fr 1fr 1fr .5fr;
     align-items: center;
+    gap: 20px;
 }
 
 .product_wrapper:not(:last-child) {
@@ -26,7 +27,7 @@
 .product_count_wrapper {
     display: flex;
     align-items: center;
-    margin: 0 3em;
+    /*margin: 0 3em;*/
     border: 1px solid var(--color-grey-dark);
     background-color: var(--color-grey-lite);
     border-radius: var(--radius-s);

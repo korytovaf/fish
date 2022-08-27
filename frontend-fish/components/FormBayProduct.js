@@ -2,22 +2,20 @@ import {useEffect, useRef, useState} from "react";
 import {
   form,
   inputs,
-  header_wrapper,
-  header,
   button,
-  card,
-  wrapper_description,
-  text_description,
-  placeholder_wrapper
+  payment_terms,
+  payment_terms_title
 } from "../styles/FormAddedProduct.module.css"
 
 import Input from "../ui/Input";
 import useInput from "../hooks/useInput";
 import {fetchData} from "../api/fetchData";
 import useBasket from "../hooks/useBasket";
+import {useRouter} from "next/router";
 
 export default function FormBayProduct({ totalPriceBasket }) {
-  const { basketProducts } = useBasket();
+  const router = useRouter();
+  const { basketProducts, clearBasket } = useBasket();
   const consumer = useInput("", {isEmpty: true});
   const phone = useInput("", {isEmpty: true, isOnlyNumber: true});
   const address = useInput("", {isEmpty: true});
@@ -38,10 +36,14 @@ export default function FormBayProduct({ totalPriceBasket }) {
       phone: phone.value,
       address: address.value,
       products_basket: basketProducts,
-      totalPriceBasket
+      totalPriceBasket: totalPriceBasket
     }
     const bay = await fetchData('post', 'orders', purchase);
-    if (bay.status === 200) clearForm();
+    if (bay.status === 200) {
+      clearForm()
+      clearBasket()
+      await router.push("/")
+    }
   }
 
   useEffect(() => {
@@ -54,8 +56,9 @@ export default function FormBayProduct({ totalPriceBasket }) {
 
   return (
     <div className={form}>
-      <div>
-        <h3>Условия покупки и доставки</h3>
+      <div className={payment_terms}>
+        <h3 className={payment_terms_title}>Условия оплаты и доставки</h3>
+        <p> </p>
         <p>После того как вы отправите заказ, мы свяжемся с вами что-бы уточнить время и адрес доставки.</p>
         <p>Доставка в пределах г.Санкт-Петербурга ...</p>
         <p>...</p>
