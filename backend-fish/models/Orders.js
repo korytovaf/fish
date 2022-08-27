@@ -5,7 +5,6 @@ const products_basket = new Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
   volume: { type: Number, required: true },
-  totalPrice: { type: Number, required: true },
   unit: { type: String, required: true }
 })
 
