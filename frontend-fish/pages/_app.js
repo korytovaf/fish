@@ -1,13 +1,16 @@
 import '../styles/globals.css'
 import Layout from "../components/Layout";
 import {AuthContextWrapper} from "../contexts/useAuthContext";
+import {BasketContextWrapper} from "../contexts/useBasketContext";
 
 function MyApp({ Component, pageProps }) {
   return (
     <AuthContextWrapper>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <BasketContextWrapper>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </BasketContextWrapper>
     </AuthContextWrapper>
   )
 }
