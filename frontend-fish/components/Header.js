@@ -33,10 +33,10 @@ export default function Header() {
               ? <Link href="/"><a className={link} onClick={handlerLogout}>Выйти</a></Link>
               : router.pathname !== "/auth" && <Link href="/auth"><a >Войти</a></Link>
             }
-            <div className={basket}>
-              <Image src={basketIcon} alt="basket" />
+            <button type="button" onClick={() => router.push("basket")} className={basket}>
+              <Image src={basketIcon} alt="basket" width={35} height={35} />
               {basketProducts.length > 0 && <div className={basket_count}>{basketProducts.length}</div>}
-            </div>
+            </button>
           </div>
         </div>
       </div>

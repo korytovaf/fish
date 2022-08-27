@@ -24,7 +24,26 @@ export default function useBasket() {
     }
   }
 
+  const removeProductVolume = (product) => {
+    const index = basketProducts.findIndex(item => item._id === product._id)
+    if (index !== -1) {
+      if (product.volume === 1) return
+      basketProducts[index].volume --
+      setBasketProducts(basketProducts)
+      localStorage.setItem("basket", JSON.stringify(basketProducts))
+    }
+  }
+
+  const removeProduct = (product) => {
+    setBasketProducts(basketProducts.filter(i => i._id !== product._id))
+    localStorage.setItem("basket", JSON.stringify(basketProducts.filter(i => i._id !== product._id)))
+  }
+
+  // const totalPrice = () => {
+  //   setTotalPriceBasket(basketProducts.reduce((sum, item) => sum + item.volume * item.price, 0))
+  // }
+
   return {
-    addProduct, basketProducts
+    addProduct, basketProducts, removeProductVolume, removeProduct
   }
 }

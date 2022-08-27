@@ -16,9 +16,15 @@
 
 .basket {
   position: relative;
-  width: 35px;
-  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: none;
   margin-left: 30px;
+  cursor: pointer;
+}
+
+.basket:hover {
+  background: transparent;
 }
 
 .basket_count {
