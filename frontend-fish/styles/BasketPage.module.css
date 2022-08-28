@@ -11,3 +11,17 @@
     margin-top: .8em;
     text-align: right;
 }
+
+@media (max-width: 1024px) {
+    .wrapper {
+        margin: 1em;
+        padding: 1em;
+    }
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        margin: 1em 2em;
+    }
+}
+

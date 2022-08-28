@@ -4,7 +4,9 @@ import {
   product_img,
   product_count_wrapper,
   product_count_btn,
-  product_count
+  product_count,
+  product_price,
+  product_title
 } from "../styles/BasketItem.module.css"
 import Image from "next/image";
 import useBasket from "../hooks/useBasket";
@@ -42,7 +44,7 @@ export default function BasketItem({ product, setTotalPriceBasket }) {
       <div className={product_img_wrapper}>
         <Image className={product_img} src={imageUrl} width={90} height={90} alt={product.name} />
       </div>
-      <div>
+      <div className={product_title}>
         <div>{product.name}</div>
         <strong>
           <span>{product.price}</span>
@@ -54,7 +56,7 @@ export default function BasketItem({ product, setTotalPriceBasket }) {
         <div className={product_count}>{count}</div>
         <button type="button" className={product_count_btn} onClick={handleAddProduct}>+</button>
       </div>
-      <strong>
+      <strong className={product_price}>
         <span>{product.price * count}</span>
         <span> руб.</span>
       </strong>
