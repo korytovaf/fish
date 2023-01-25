@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { card, img_wrapper, img, description, basket_btn, product_name, basket_wrapper } from "../styles/Card.module.css";
+import { card, img_wrapper, img, description, basket_btn, product_name, product_name_description, basket_wrapper } from "../styles/Card.module.css";
 import {basket_count} from "../styles/Header.module.css";
 import useBasket from "../hooks/useBasket";
 import {useCallback, useEffect, useState} from "react";
@@ -26,6 +26,8 @@ export default function Card({ product }) {
     addedVolumeProduct();
   }
 
+  console.log(product)
+
   return (
     <div className={card}>
       <div className={img_wrapper} >
@@ -39,11 +41,13 @@ export default function Card({ product }) {
       </div>
       <div className={description}>
         <div className={product_name}>{ product.name }</div>
-        <div>
-          <strong>{ product.price }</strong>
-          <strong> руб.</strong>
-        </div>
+        <div className={product_name_description}>{ product.description }</div>
         <div className={basket_wrapper}>
+          <div>
+            <strong>от </strong>
+            <strong>{ product.price }</strong>
+            <strong>{` руб. / ${product.unit}`}</strong>
+          </div>
           <button type="button" onClick={addProductToBasket} className={basket_btn}>
             В корзину
             {basketProductVolume && <div className={basket_count}>{basketProductVolume}</div>}

@@ -1,7 +1,7 @@
 .card {
     display: grid;
-    grid-template-rows: 3fr 1fr;
-    height: 400px;
+    grid-template-rows: 360px 1fr;
+    height: 540px;
     border-radius: var(--radius);
     -webkit-box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
@@ -23,14 +23,16 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    row-gap: 14px;
     padding: 1em;
     font-size: 14px;
 }
 
 .basket_wrapper {
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
     margin-top: auto;
+    align-items: center;
 }
 
 .basket_btn {
@@ -38,4 +40,16 @@
     position: relative;
     padding: .6em 1em;
     height: auto;
+}
+
+.product_name {
+    font-weight: bold;
+}
+
+.product_name_description {
+    font-size: 12px;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
 }

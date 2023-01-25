@@ -1,11 +1,36 @@
 .link {
     padding: 0 .5em;
-    font-size: 18px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--color-blue-light);
 }
+
+.link_phone {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    color: var(--color-blue-light);
+    font-weight: bold;
+}
+
+.link_phone > svg {
+    fill: var(--color-blue-light);
+}
+
+.link_phone > svg:hover {
+    fill: var(--color-blue-dark);
+}
+
 
 .navigate {
     display: flex;
     align-items: flex-end;
+}
+
+.navigate_list {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
 }
 
 .navigate_mobile {
@@ -20,15 +45,15 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 320px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 100px;
-    background-color: white;
     z-index: 1;
     transition: all .2s ease-in-out;
+    background-color: var(--color-grey-lite);
 }
 
 .menu_active {
@@ -42,11 +67,24 @@
 .menu_btn_close {
     position: absolute;
     top: 30px;
-    right: 30px;
+    right: 20px;
+}
+
+.basket_count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--color-blue-dark);
+    color: white;
+    font-size: 10px;
+    margin-left: 8px;
 }
 
 
-@media (max-width: 800px) {
+@media (max-width: 1024px) {
     .navigate {
         display: none;
     }
@@ -70,7 +108,23 @@
         background-color: transparent;
     }
 
-    .link {
-        padding: 1em 0;
+    .link_phone {
+        display: flex;
+        align-items: center;
+        padding: 12px 30px;
+        width: 100%;
     }
+}
+
+@media (max-width: 500px) {
+    .menu_btn {
+        width: 24px;
+        height: 24px;
+        transform: translateY(0);
+    }
+
+    .menu_list {
+        width: 100vw;
+    }
+
 }
