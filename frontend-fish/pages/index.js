@@ -1,28 +1,28 @@
 import Card from "../components/Card";
 import { list } from "../styles/IndexPage.module.css"
+import useSWR from "swr"
+import {fetcher} from "../helpers/fetcher";
+import {Center, Spinner} from "@chakra-ui/react";
 
-export default function Home({ products }) {
+export default function Home() {
+  const { data, error, isLoading } = useSWR(process.env.API_URL + "products", fetcher)
+
+  if (isLoading) return <Center h='300px'>
+    <Spinner
+      thickness='4px'
+      speed='0.65s'
+      emptyColor='gray.200'
+      color='blue.500'
+      size='xl'
+    />
+  </Center>
+
+
   return (
     <div  className={list}>
-      {products.map( product => (
+      {data.map( product => (
         <Card product={product} key={product._id} />
       ))}
     </div>
   )
-}
-
-
-export async function getServerSideProps() {
-
-  const request = await fetch(process.env.API_URL + "products")
-  const products = await request.json();
-
-  if (!products) {
-    return {
-      notFound: true,
-    };
-  }
-  return {
-    props: { products },
-  }
 }
