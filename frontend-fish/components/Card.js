@@ -1,10 +1,13 @@
 import Image from "next/image";
-import { card, img_wrapper, img, description, basket_btn, product_name, product_name_description, basket_wrapper } from "../styles/Card.module.css";
+import { card, img_wrapper, img, description, basket_btn, product_name, product_name_description, basket_wrapper, delete_icon } from "../styles/Card.module.css";
 import {basket_count} from "../styles/Header.module.css";
 import useBasket from "../hooks/useBasket";
 import {useCallback, useEffect, useState} from "react";
+import useSWR from "swr";
+import {fetcher} from "../helpers/fetcher";
 
 export default function Card({ product }) {
+  const { data, mutate } = useSWR(process.env.API_URL + "products", fetcher)
   const imageUrl = process.env.API_URL + "images/" + product.images;
   const { addProduct, basketProducts } = useBasket();
   const [basketProductVolume, setBasketProductVolume] = useState(null);
@@ -26,10 +29,21 @@ export default function Card({ product }) {
     addedVolumeProduct();
   }
 
-  console.log(product)
+  const deleteProduct = async () => {
+    await fetcher(process.env.API_URL + "products/" + product._id, { method: 'DELETE' })
+  }
 
   return (
     <div className={card}>
+      <div
+        onClick={async () => {
+          await deleteProduct();
+          await mutate(data.filter(i => i._id === product._id))
+        }}
+        className={delete_icon}
+      >
+        Удалить
+      </div>
       <div className={img_wrapper} >
         <Image
           className={img}

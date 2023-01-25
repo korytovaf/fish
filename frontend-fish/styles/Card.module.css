@@ -1,4 +1,5 @@
 .card {
+    position: relative;
     display: grid;
     grid-template-rows: 360px 1fr;
     height: 540px;
@@ -52,4 +53,16 @@
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
+}
+
+.delete_icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
 }
