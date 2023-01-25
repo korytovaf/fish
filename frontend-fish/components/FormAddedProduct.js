@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import {
-  form,
+  // form,
+  form_wrapper,
   inputs,
   header_wrapper,
   header,
@@ -20,6 +21,7 @@ import Image from "next/image";
 import image_placeholder from "../public/icons/image_placeholder.svg";
 import {img, img_wrapper} from "../styles/Card.module.css";
 import useAuth from "../hooks/useAuth";
+import Box from "../ui/Box/Box";
 
 
 const listBtnRadio = [
@@ -85,68 +87,70 @@ export default function FormAddedProduct() {
   const imageUrl = process.env.API_URL + "upload/" + images;
 
   return (
-    <form className={form}>
-      <div className={header_wrapper}>
-        <h3 className={header}>Новый товар</h3>
-        <div className={card}>
-          <div className={img_wrapper}>
-            {images
-              ? (<Image className={img} src={imageUrl} layout="responsive" width={300} height={300} alt={name.value} />)
-              : (<div className={placeholder_wrapper}>
+    <Box>
+      <div className={form_wrapper}>
+        <div className={header_wrapper}>
+          <h3 className={header}>Новый товар</h3>
+          <div className={card}>
+            <div className={img_wrapper}>
+              {images
+                ? (<Image className={img} src={imageUrl} layout="responsive" width={300} height={300} alt={name.value} />)
+                : (<div className={placeholder_wrapper}>
                   <Image src={image_placeholder} width={100} height={100} alt="image placeholder" />
                 </div>)
-            }
-          </div>
-          <div className={wrapper_description}>
-            <div>{ name.value ? name.value : "Наименование товара" }</div>
-            <div className={text_description}>{ description.value ? description.value : "Описание" }</div>
-            <div>
-              <strong>{ price.value ? price.value : "0" }</strong>
-              <strong> руб.</strong>
+              }
+            </div>
+            <div className={wrapper_description}>
+              <div>{ name.value ? name.value : "Наименование товара" }</div>
+              <div className={text_description}>{ description.value ? description.value : "Описание" }</div>
+              <div>
+                <strong>{ price.value ? price.value : "0" }</strong>
+                <strong> руб.</strong>
+              </div>
             </div>
           </div>
         </div>
+        <form className={inputs}>
+          <Input
+            value={name.value}
+            handler={name.onChange}
+            label="Наименование товара"
+            onBlur={name.onBlur}
+            dirty={name.isDirty}
+            valid={name.valid}
+          />
+          <Input
+            value={price.value}
+            handler={price.onChange}
+            label="Цена товара"
+            onBlur={price.onBlur}
+            dirty={price.isDirty}
+            valid={price.valid}
+          />
+          <InputRadio
+            title="Единица измерения"
+            listBtn={listBtnRadio}
+            setValue={setUnit}
+            initialValue={unit}
+          />
+          <Textarea
+            value={description.value}
+            handler={description.onChange}
+            label="Описание продукта"
+            onBlur={description.onBlur}
+            dirty={description.isDirty}
+            valid={description.valid}
+          />
+          <InputFile
+            refFile={refFile}
+            handlerUploadFile={handlerUploadFile}
+            isload={loadUploadFile}
+          />
+          <div>
+            <button disabled={!validForm} className={button} onClick={onSubmitForm}>Сохранить</button>
+          </div>
+        </form>
       </div>
-      <div className={inputs}>
-        <Input
-          value={name.value}
-          handler={name.onChange}
-          label="Наименование товара"
-          onBlur={name.onBlur}
-          dirty={name.isDirty}
-          valid={name.valid}
-        />
-        <Input
-          value={price.value}
-          handler={price.onChange}
-          label="Цена товара"
-          onBlur={price.onBlur}
-          dirty={price.isDirty}
-          valid={price.valid}
-        />
-        <InputRadio
-          title="Единица измерения"
-          listBtn={listBtnRadio}
-          setValue={setUnit}
-          initialValue={unit}
-        />
-        <Textarea
-          value={description.value}
-          handler={description.onChange}
-          label="Описание продукта"
-          onBlur={description.onBlur}
-          dirty={description.isDirty}
-          valid={description.valid}
-        />
-        <InputFile
-          refFile={refFile}
-          handlerUploadFile={handlerUploadFile}
-          isload={loadUploadFile}
-        />
-        <div>
-          <button disabled={!validForm} className={button} onClick={onSubmitForm}>Сохранить</button>
-        </div>
-      </div>
-    </form>
+    </Box>
   )
 }

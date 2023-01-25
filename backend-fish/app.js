@@ -13,7 +13,10 @@ const corsOptions = {
 }
 
 mongoose.connect(process.env.MONGO_DB, function (err) {
-  if (err) throw err; // ошибка подключения
+  if (err) {
+    console.log('Ошибка подключения к MongoDB: ', err)
+    throw err
+  };
   console.log('Подключился к MongoDB');
 });
 

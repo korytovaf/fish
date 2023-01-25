@@ -1,8 +1,9 @@
 import useBasket from "../hooks/useBasket";
-import { wrapper, basket_total } from "../styles/BasketPage.module.css"
+import { basket_wrapper, basket_total } from "../styles/BasketPage.module.css"
 import BasketItem from "../components/BasketItem";
 import FormBayProduct from "../components/FormBayProduct";
 import {useEffect, useState} from "react";
+import Box from "../ui/Box/Box";
 
 export default function BasketPage() {
   const { basketProducts } = useBasket();
@@ -13,8 +14,8 @@ export default function BasketPage() {
   }, [basketProducts])
 
   return (
-    <>
-      <div className={wrapper}>
+    <div  className={basket_wrapper}>
+      <Box>
         {basketProducts.length === 0 && <div>Здесь еще ничего нет (</div>}
         {basketProducts.map((product) => (
           <BasketItem key={product._id} product={product} setTotalPriceBasket={setTotalPriceBasket} />
@@ -26,9 +27,8 @@ export default function BasketPage() {
             <span> руб.</span>
           </strong>
         )}
-      </div>
+      </Box>
       <FormBayProduct totalPriceBasket={totalPriceBasket} />
-    </>
-
+    </div>
   )
 }

@@ -12,6 +12,7 @@ import useInput from "../hooks/useInput";
 import {fetchData} from "../api/fetchData";
 import useBasket from "../hooks/useBasket";
 import {useRouter} from "next/router";
+import Box from "../ui/Box/Box";
 
 export default function FormBayProduct({ totalPriceBasket }) {
   const router = useRouter();
@@ -55,7 +56,7 @@ export default function FormBayProduct({ totalPriceBasket }) {
   }, [address.valid.isValid, basketProducts.length, consumer.valid.isValid, phone.valid.isValid, totalPriceBasket]);
 
   return (
-    <div className={form}>
+    <Box>
       <div className={payment_terms}>
         <h3 className={payment_terms_title}>Условия оплаты и доставки</h3>
         <p> </p>
@@ -93,6 +94,6 @@ export default function FormBayProduct({ totalPriceBasket }) {
           <button disabled={!validForm} className={button} onClick={onSubmitForm}>Отправить заказ</button>
         </div>
       </div>
-    </div>
+    </Box>
   )
 }

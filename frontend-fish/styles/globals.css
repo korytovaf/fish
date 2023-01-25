@@ -30,6 +30,9 @@
   --color-accent-lite: rgb(255, 230, 224);
   --color-accent-dark: rgb(215, 53, 24);
 
+  --color-blue-light: #628fc5;
+  --color-blue-dark: #45709f;
+
 }
 
 html,
@@ -81,7 +84,7 @@ button {
   width: auto;
   padding: 0 2em;
   border-radius: .6em;
-  border: 1px solid black;
+  border: none;
   cursor: pointer;
   transition: all 200ms;
 }

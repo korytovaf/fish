@@ -1,0 +1,22 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--color-grey-main);
+    border-radius: var(--radius);
+}
+
+@media (max-width: 768px) {
+    .box {
+        padding: 1.5em;
+    }
+}
+
+@media (max-width: 425px) {
+    .box {
+        padding: 1em;
+    }
+}
