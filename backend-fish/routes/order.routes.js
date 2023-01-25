@@ -6,7 +6,7 @@ const OrdersCount = require("../models/OrdersCount")
 const router = Router()
 const TelegramApi = require('node-telegram-bot-api')
 
-const bot = new TelegramApi(process.env.TG_BOT_TOKEN, {polling: true})
+const bot = new TelegramApi(process.env.TG_BOT_TOKEN)
 bot.on('message', msg => {
   console.log(msg)
 })
