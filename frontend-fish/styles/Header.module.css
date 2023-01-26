@@ -16,24 +16,24 @@
 }
 
 .logo_img svg {
-  width: 80px;
-  height: 80px;
-  fill: var(--color-accent-dark);
+  width: auto;
+  height: 70px;
+  cursor: pointer;
 }
 
 
-.logo_text {
-  font-family: Ruslan Display, cursive;
-  font-size: 30px;
-  color: var(--color-accent-dark);
-}
+/*.logo_text {*/
+/*  font-family: Ruslan Display, cursive;*/
+/*  font-size: 40px;*/
+/*  color: var(--color-accent-dark);*/
+/*}*/
 
-.logo_text_subtitle {
-  font-family: Ruslan Display, cursive;
-  font-size: 20px;
-  color: var(--color-blue-light);
+/*.logo_text_subtitle {*/
+/*  font-family: Ruslan Display, cursive;*/
+/*  font-size: 25px;*/
+/*  color: var(--color-blue-light);*/
 
-}
+/*}*/
 
 .basket {
   position: relative;
@@ -77,38 +77,28 @@
   .nav_wrapper {
     flex-direction: row-reverse;
   }
-}
 
-@media (max-width: 700px) {
   .logo_img svg {
-    width: 50px;
     height: 50px;
   }
-
-  .logo_text {
-    font-size: 20px;
-  }
-
-  .logo_text_subtitle {
-    font-size: 16px;
-  }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
   .nav_wrapper {
     column-gap: 6px;
   }
 
   .logo_img svg {
-    width: 40px;
-    height: 40px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 425px) {
+  .logo_img svg {
+    height: 28px;
   }
 
-  .logo_text {
-    font-size: 15px;
-  }
-
-  .logo_text_subtitle {
-    font-size: 11px;
+  .wrapper_right {
+    display: none;
   }
 }
