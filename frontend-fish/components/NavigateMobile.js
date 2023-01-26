@@ -54,7 +54,7 @@ export default function NavigateMobile() {
           <Link href="/"><a onClick={offOpenMenu} className={link_phone}>Главная</a></Link>
 
           <a
-            href="https://telegram.im/@korytovaf"
+            href="https://telegram.im/@forelvpiter"
             target="_blank"
             className={link_phone}
             rel="noreferrer"

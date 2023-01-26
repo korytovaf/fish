@@ -11,9 +11,6 @@ export default function Layout({ children }) {
         <title>Форель КАРЕЛИИ</title>
         <meta name="description" content="Всегда свежая форель в Санкт-Петербурге до парадной" />
         <link rel="icon" href="/icons/fish.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ruslan+Display&display=swap" />
       </Head>
       <Header />
       <main>{children}</main>
