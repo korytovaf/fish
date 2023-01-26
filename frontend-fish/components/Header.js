@@ -25,14 +25,9 @@ export default function Header() {
     <header className={header}>
       <div className={wrapper}>
         <div className={logo}>
-          <div className={logo_img}>
+          <div className={logo_img} onClick={() => router.push("/")}>
             <LogoFish />
-            {/*<Image src={logoSvg} alt="logo" />*/}
           </div>
-          <span className={logo_text}>
-            <div className={logo_text}>Форель карелии</div>
-            <div className={logo_text_subtitle}>ДО ПАРАДНОЙ</div>
-          </span>
         </div>
         <div className={nav_wrapper}>
           <Navigate />

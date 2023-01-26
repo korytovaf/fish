@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { card, img_wrapper, img, description, basket_btn, product_name, product_name_description, basket_wrapper, delete_icon } from "../styles/Card.module.css";
+import { card, img_wrapper, img, description, product_name, product_name_description, basket_wrapper, delete_icon, btn_group } from "../styles/Card.module.css";
 import {basket_count} from "../styles/Header.module.css";
 import useBasket from "../hooks/useBasket";
 import {useCallback, useEffect, useRef, useState} from "react";
@@ -105,19 +105,16 @@ export default function Card({ product }) {
         <div className={product_name_description}>{ product.description }</div>
         <div className={basket_wrapper}>
           <div>
-            <strong>от </strong>
             <strong>{ product.price }</strong>
             <strong>{` руб. / ${product.unit}`}</strong>
           </div>
 
-          <Button colorScheme='blue' onClick={addProductToBasket} >
-            В корзину
-            {/*{basketProductVolume && <div className={basket_count}>{basketProductVolume}</div>}*/}
-          </Button>
-          {/*<button type="button" onClick={addProductToBasket} className={basket_btn}>*/}
-          {/*  В корзину*/}
+          <div className={btn_group}>
+            <Button colorScheme='blue' onClick={addProductToBasket}>В корзину</Button>
+            <Button colorScheme='blue' variant='link' size='xs' onClick={() => router.push('basket')}>Заказать</Button>
+          </div>
           {basketProductVolume && <div className={basket_count}>{basketProductVolume}</div>}
-          {/*</button>*/}
+
         </div>
       </div>
     </div>

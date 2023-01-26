@@ -1,6 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
+    row-gap: 20px;
     height: 100%;
     padding: 0 2rem;
     max-width: 1200px;
@@ -9,6 +10,6 @@
 
 @media (max-width: 425px) {
     .container {
-        padding: 1em;
+        /*padding: 1em;*/
     }
 }
