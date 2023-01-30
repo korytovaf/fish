@@ -52,5 +52,24 @@ router.get('/:fileName', async (req, res) => {
 })
 
 
+// /api/v1/upload/save
+router.get('/save/:fileName', async (req, res) => {
+  try {
+    const filePath = path.resolve(path.join(__dirname, '../../') + '/upload/' + req.params.fileName)
+
+    fs.access(filePath, fs.constants.R_OK, (err) => {
+      if (err) {
+        res.status(404).json({ message: 'Файл не найден' })
+      } else {
+        fs.createReadStream(filePath).pipe(res)
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ message: 'Что-то пошло не так', error: e })
+  }
+})
+
+
 
 module.exports = router

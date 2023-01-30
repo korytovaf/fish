@@ -13,8 +13,10 @@
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@pbe/react-yandex-maps": "^1.2.2",
     "axios": "^0.27.2",
     "config": "^3.3.7",
+    "formik": "^2.2.9",
     "framer-motion": "^8.5.2",
     "next": "12.2.5",
     "react": "18.2.0",
@@ -22,8 +24,12 @@
     "swr": "^2.0.1"
   },
   "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.27",
     "eslint": "8.21.0",
-    "eslint-config-next": "12.2.5"
+    "eslint-config-next": "12.2.5",
+    "typescript": "^4.9.4",
+    "typescript-plugin-css-modules": "^4.1.1"
   },
   "proxy": "http://localhost/"
 }

@@ -5,6 +5,7 @@
 
 /frontend-fish/node_modules/
 /frontend-fish/.next
+/frontend-fish/next-env.d.ts
 
 /images/
 /upload/
