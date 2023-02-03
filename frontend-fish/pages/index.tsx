@@ -1,41 +1,24 @@
-import {FC, useEffect} from 'react';
+import {FC} from 'react';
 import useSWR from "swr"
+import {CardProduct} from '../components/molecules/CardProduct';
+import {productType} from '../types';
+import trout from '../images/trout.png';
+import {getProduct, productsEndpoint} from '../api/fetchData';
 import {
-  Box,
   Center,
-  Heading,
   SimpleGrid,
   Spinner,
   Text,
-  useToast,
   Grid,
   GridItem,
-  Stack, useColorMode, Image,
+  Stack,
+  useColorMode,
 } from '@chakra-ui/react';
 
-import {CardProduct} from '../components/CardProduct';
-import {fetcher} from "../helpers/fetcher";
-import {productType} from '../types';
-
-import trout from '../images/trout.png';
 
 const Home:FC = () => {
-  const toast = useToast();
   const { colorMode } = useColorMode();
-  const { data, isLoading, error } = useSWR<productType[]>(process.env.API_URL + "products", fetcher);
-
-  useEffect(() => {
-    if (error) {
-      toast({
-        position: 'bottom',
-        render: () => (
-          <Box color='white' p={3} bg='red.500'>
-            {error.message}
-          </Box>
-        ),
-      })
-    }
-  }, [error])
+  const { data, isLoading } = useSWR<productType[]>(productsEndpoint, getProduct);
 
   if (isLoading) return <Center h='300px'>
     <Spinner
@@ -51,7 +34,6 @@ const Home:FC = () => {
     <>
       <Grid
         maxW={[300, 320, 320, 400]}
-        // h={['100%', '100%', '100%', '100%','300px', '300px']}
         templateColumns='1fr'
         gridTemplateRows='1fr'
       >
@@ -94,7 +76,7 @@ const Home:FC = () => {
       <SimpleGrid
         pt={8}
         spacing={4}
-        templateColumns='repeat(auto-fill, minmax(200px, 1fr))'
+        templateColumns='repeat(auto-fill, minmax(250px, 1fr))'
         justifyItems={['center', 'center', null, null]}
       >
         {data?.map( product => (

@@ -1,19 +1,24 @@
-import {FC} from 'react';
-import {Box, Heading, Grid, List, useColorMode, IconButton} from '@chakra-ui/react';
-import {LogoFish} from '../ui/icons/Logo';
+import {FC, useContext} from 'react';
+import {Box, Heading, Grid, List, useColorMode, IconButton, HStack} from '@chakra-ui/react';
+import {LogoFish} from '../../ui/icons/Logo';
 import {useRouter} from 'next/router';
-import {HomeIcon} from '../ui/icons/HomeIcon';
-import {LinkMenu} from '../ui/LinkMenu';
-import {BasketIcon} from '../ui/icons/BasketIcon';
-import {WalletIcon} from '../ui/icons/WalletIcon';
-import {DeliveryIcon} from '../ui/icons/DeliveryIcon';
-import {PhoneIcon} from '../ui/icons/PhoneIcon';
-import {TelegramIcon} from '../ui/icons/TelegramIcon';
-import {WhatsAppIcon} from '../ui/icons/WhatsAppIcon';
-import {QrCodeTelegram} from '../ui/icons/QrCodeTelegram';
-import {MapPointIcon} from '../ui/icons/MapPointIcon';
-import {SunIcon} from '../ui/icons/SunIcon';
-import {MoonIcon} from '../ui/icons/MoonIcon';
+import {HomeIcon} from '../../ui/icons/HomeIcon';
+import {LinkMenu} from '../atoms/LinkMenu';
+import {BasketIcon} from '../../ui/icons/BasketIcon';
+import {WalletIcon} from '../../ui/icons/WalletIcon';
+import {DeliveryIcon} from '../../ui/icons/DeliveryIcon';
+import {PhoneIcon} from '../../ui/icons/PhoneIcon';
+import {TelegramIcon} from '../../ui/icons/TelegramIcon';
+import {WhatsAppIcon} from '../../ui/icons/WhatsAppIcon';
+import {QrCodeTelegram} from '../../ui/icons/QrCodeTelegram';
+import {MapPointIcon} from '../../ui/icons/MapPointIcon';
+import {SunIcon} from '../../ui/icons/SunIcon';
+import {MoonIcon} from '../../ui/icons/MoonIcon';
+import {LoginIcon} from '../../ui/icons/LoginIcon';
+import {useAuth} from '../../hooks/useAuth';
+import {LogoutIcon} from '../../ui/icons/LogoutIcon';
+import {AuthContext} from '../../contexts/useAuthContext';
+import {SettingIcon} from '../../ui/icons/SettingIcon';
 
 
 type SideMenuType = {
@@ -24,6 +29,16 @@ type SideMenuType = {
 export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
+  const {isAuth, user} = useContext(AuthContext);
+  const { logout } = useAuth();
+
+  const onAuth = async () => {
+    if (isAuth) {
+      logout()
+    } else {
+      await router.push('/auth')
+    }
+  }
 
   return (
     <Grid templateColumns='1fr' gap={[16, 16, 16, 24]} pb={20}>
@@ -114,14 +129,32 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
         </List>
       </Box>
 
-      <Box>
+      <HStack>
         <IconButton
+          size='sm'
           onClick={toggleColorMode}
           aria-label='Переключение темы'
           variant='customIconButton'
           icon={colorMode === 'dark' ? <SunIcon height={20} /> : <MoonIcon height={20} />}
         />
-      </Box>
+        <IconButton
+          size='sm'
+          onClick={onAuth}
+          aria-label='Переключение темы'
+          variant='customIconButton'
+          icon={isAuth ? <LogoutIcon height={16} /> : <LoginIcon height={16} />}
+        />
+        {user?.isAdmin && (
+          <IconButton
+            size='sm'
+            onClick={() => router.push('/admin')}
+            aria-label='Настройка аккаунта'
+            variant='customIconButton'
+            icon={<SettingIcon active={router.pathname === '/admin'} />}
+          />
+        )}
+
+      </HStack>
 
     </Grid>
   )

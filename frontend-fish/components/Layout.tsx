@@ -1,18 +1,19 @@
 import {FC, ReactNode, useRef} from 'react';
 import Head from 'next/head';
-import {TopPanel} from "./TopPanel";
+import {TopPanel} from "./organisms/TopPanel";
 import {
-  Box, Center, Container,
+  Box,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerOverlay,
-  Flex, HStack, Stack,
+  HStack,
+  Stack,
   useColorMode,
   useDisclosure,
 } from '@chakra-ui/react';
-import {SideMenu} from './SideMenu';
+import {SideMenu} from './molecules/SideMenu';
 
 
 type LayoutType = {

@@ -13,24 +13,25 @@ import {
   Box
 } from '@chakra-ui/react';
 
-import {useBasket} from "../hooks/useBasket";
-import {productType} from '../types';
-import {TrashIcon} from '../ui/icons/TrashIcon';
-import {MinusIcon} from '../ui/icons/MinusIcon';
-import {PlusIcon} from '../ui/icons/PlusIcon';
+import {useBasket} from "../../hooks/useBasket";
+import {productType} from '../../types';
+import {TrashIcon} from '../../ui/icons/TrashIcon';
+import {MinusIcon} from '../../ui/icons/MinusIcon';
+import {PlusIcon} from '../../ui/icons/PlusIcon';
 
 
-type BasketItemProps = {
+type basketItemProps = {
   product: productType
   setTotalPriceBasket: Dispatch<SetStateAction<number>>
 }
 
-export const CardProductBasket:FC<BasketItemProps> = ({ product, setTotalPriceBasket }) => {
+
+export const CardProductBasket:FC<basketItemProps> = ({ product, setTotalPriceBasket }) => {
   const imageUrl = process.env.API_URL + "images/" + product.images;
   const [count, setCount] = useState(product.volume);
   const { addProduct, removeProductVolume, removeProduct, basketProducts } = useBasket();
 
-  const totalPrise = () => basketProducts.reduce((sum, item) => sum + item.volume * item.price, 0)
+  const totalPrise = () => basketProducts.reduce((sum, item) => sum + item.volume * +item.price, 0)
 
   const handleAddVolume = () => {
     addProduct(product)
@@ -101,7 +102,7 @@ export const CardProductBasket:FC<BasketItemProps> = ({ product, setTotalPriceBa
           <GridItem area={'price'}>
             <Stack spacing={0}>
               <Text fontSize={['sm', 'sm', 'lg', 'lg']} textAlign='end' fontWeight='bold'>
-                {`${product.price * count} ₽`}
+                {`${+product.price * count} ₽`}
               </Text>
               <Text opacity={0.7} fontSize={['small', 'small', 'sm', 'sm']} textAlign='end'>
                 {`${product.price} ₽`}

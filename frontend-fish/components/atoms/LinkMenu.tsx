@@ -1,7 +1,6 @@
 import {FC, ReactNode} from "react";
 import LinkNext from 'next/link';
 import {Box, Flex, Link, ListItem} from '@chakra-ui/react';
-import {useRouter} from 'next/router';
 
 type LinkMenuType = {
   href: string,
@@ -14,10 +13,7 @@ type LinkMenuType = {
 
 
 export const LinkMenu:FC<LinkMenuType> = ({ href, title, icon, target, onCloseDrawer, accent }) => {
-  const router = useRouter();
 
-  console.log(router);
-  console.log(href);
   return (
     <ListItem>
       <LinkNext href={href} passHref>

@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {Icon, useColorMode} from '@chakra-ui/react';
+import {useColorMode} from '@chakra-ui/react';
 
 type MinusIconType = {
   width?: number | 21,

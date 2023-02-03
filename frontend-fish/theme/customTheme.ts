@@ -8,7 +8,7 @@ export const theme = extendTheme({
   styles: {
     global: (props) => ({
       'html, body': {
-        fontSize: 'md',
+        fontSize: ['xs', 'xs', 'sm', 'md'],
         backgroundColor: props.colorMode === 'dark' ? '#000000' : '#ffffff',
         lineHeight: 'tall',
       },
@@ -20,14 +20,6 @@ export const theme = extendTheme({
         color: '#38BACC',
       },
     }),
-  },
-  fontSizes: {
-    xs: '8px',
-    sm: '10px',
-    md: '12px',
-    lg: '16px',
-    xl: '20px',
-    '2xl': '24px',
   },
   components: {
     IconButton: buttonIconTheme,

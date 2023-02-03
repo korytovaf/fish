@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
 const User = require('../models/Users');
+const isAuth = require("../middleware/auth.middleware");
 const router = Router();
 
 const createToken = (id, isAdmin) => {
@@ -87,5 +88,22 @@ router.post(
       response.status(500).json({ message: 'Ошибка входа! Что-то пошло не так'})
     }
   })
+
+
+// получить пользователя - /api/v1/auth/user
+router.get('/user', isAuth, async (req, res) => {
+
+  try {
+    const token = req.headers.authorization.split(" ")[1]
+    const { userId } = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
+
+    const user = await User.findOne({ _id: userId }, ['_id', 'name', 'isAdmin', 'email'])
+
+    res.status(200).json(user)
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ message: 'Что-то пошло не так', error: e })
+  }})
+
 
 module.exports = router

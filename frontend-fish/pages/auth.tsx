@@ -1,19 +1,19 @@
-import Form from "../ui/Form";
-// import { inputs } from "../styles/FormAddedProduct.module.css";
-import Signup from "../components/Signup";
-import {useState} from "react";
-import Login from "../components/Login";
+import {Card, Heading} from '@chakra-ui/react';
+import {AuthForm} from '../components/molecules/AuthForm';
 
 export default function AuthPage() {
 
-  const [isLogin, setIsLogin] = useState(true);
-
+  // const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <Form title={isLogin ? "Авторизация" : "Регистрация"}>
-      <div>
-        {isLogin ? <Login setIsLogin={setIsLogin} /> : <Signup setIsLogin={setIsLogin} />}
-      </div>
-    </Form>
+    <>
+      <Heading as='h1'>
+        Авторизация
+      </Heading>
+
+      <Card variant='customCard' maxW='xl'>
+        <AuthForm />
+      </Card>
+    </>
   )
 }

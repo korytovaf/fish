@@ -10,6 +10,7 @@ const variants = {
       backgroundColor: props.colorMode === 'dark' ? '#131313' : '#F6F6F6',
       borderRadius: '3xl',
       shadow: 'md',
+      padding: '20px',
     }
   }),
   cardProductBasket: (props) => definePartsStyle({

@@ -1,9 +1,9 @@
 import {FC, ReactNode, createContext, useEffect, useState, Dispatch, SetStateAction} from 'react';
-import {productType} from '../types';
+import {basketItemProps} from '../types';
 
 type BasketContextType = {
-  basketProducts: productType[];
-  setBasketProducts: Dispatch<SetStateAction<productType[]>>;
+  basketProducts: basketItemProps[];
+  setBasketProducts: Dispatch<SetStateAction<basketItemProps[]>>;
 }
 
 type BasketContextWrapperType = {
@@ -16,7 +16,7 @@ export const BasketContext = createContext<BasketContextType>({
 });
 
 export const BasketContextWrapper:FC<BasketContextWrapperType> = ({ children }) => {
-  const [basketProducts, setBasketProducts] = useState<productType[]>([]);
+  const [basketProducts, setBasketProducts] = useState<basketItemProps[]>([]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
