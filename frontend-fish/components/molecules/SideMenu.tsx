@@ -19,6 +19,7 @@ import {useAuth} from '../../hooks/useAuth';
 import {LogoutIcon} from '../../ui/icons/LogoutIcon';
 import {AuthContext} from '../../contexts/useAuthContext';
 import {SettingIcon} from '../../ui/icons/SettingIcon';
+import {VkIcon} from '../../ui/icons/VkIcon';
 
 
 type SideMenuType = {
@@ -103,6 +104,13 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
             icon={<WhatsAppIcon />}
             onCloseDrawer={onCloseDrawer}
           />
+          <LinkMenu
+            href='https://vk.com/forel_v_piter'
+            target='_blank'
+            title='forel_v_piter'
+            icon={<VkIcon />}
+            onCloseDrawer={onCloseDrawer}
+          />
         </List>
         <Box width={24} height={24} mt={6}>
           <QrCodeTelegram />
@@ -114,14 +122,15 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
         <List spacing={2}>
           <LinkMenu
             href='/about?address=baykonur'
-            title='Байконурская, 15'
+            title='СПб, Байконурская, 15'
             icon={<MapPointIcon active={router.query.address === 'baykonur'} />}
             onCloseDrawer={() => [onCloseDrawer]}
             accent={router.query.address === 'baykonur'}
           />
           <LinkMenu
             href='/about?address=priosersk'
-            title='Приозерское шоссе, 130'
+            title='д.Вартемяги,'
+            subtitle='Приозерское шоссе, 130'
             icon={<MapPointIcon active={router.query.address === 'priosersk'} />}
             onCloseDrawer={() => [onCloseDrawer]}
             accent={router.query.address === 'priosersk'}

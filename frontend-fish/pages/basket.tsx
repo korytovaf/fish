@@ -76,7 +76,7 @@ const BasketPage:FC = () => {
 
   return (
     <>
-      <Heading as='h1' size={['sm', 'md', 'lg', 'lg']}>ОФОРМЛЕНИЕ ЗАКАЗА</Heading>
+      <Heading as='h1' size='md'>ОФОРМЛЕНИЕ ЗАКАЗА</Heading>
 
       <Card variant='customCard' maxW='4xl'>
         <CardBody>

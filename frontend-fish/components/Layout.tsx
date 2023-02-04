@@ -31,7 +31,7 @@ export const Layout:FC<LayoutType> = ({ children }) => {
       <Head>
         <title>Форель КАРЕЛИИ</title>
         <meta name="description" content="Всегда свежая форель в Санкт-Петербурге до парадной" />
-        <link rel="icon" href="/icons/fish.svg" />
+        <link rel="icon" href="/icons/favicon.ico" />
       </Head>
 
       <HStack spacing={[8, 8, 12, 12]} align='flex-start' mr={[8, 8, 12, 12]}>

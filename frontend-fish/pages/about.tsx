@@ -7,7 +7,7 @@ import {
   Text,
   Box,
   HStack,
-  AspectRatio, Grid,
+  AspectRatio, Grid, Stack,
 } from '@chakra-ui/react';
 import {MapPointIcon} from '../ui/icons/MapPointIcon';
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
@@ -36,20 +36,10 @@ const About:FC = ()  => {
       zoom: 15,
     }
   }, [x, y]);
-  // const defaultStatePriosersk = {
-  //   center: [60.183391, 30.320707],
-  //   zoom: 15,
-  // };
-  //
-  // const defaultStateBaykonur = {
-  //   center: [60.002809, 30.276243],
-  //   zoom: 15,
-  // };
-
 
   return (
     <>
-      <Heading as='h1' size={['sm', 'md', 'lg', 'lg']}>О НАС</Heading>
+      <Heading as='h1' size='md'>О НАС</Heading>
 
       <Card variant='customCard' maxW='6xl'>
         <CardBody>
@@ -65,20 +55,27 @@ const About:FC = ()  => {
 
       <Card variant='customCard' maxW='6xl'>
         <CardBody>
-          <Grid gridTemplateColumns={['1fr', '250px 1fr', ' 250px 1fr', '250px 1fr']}>
-            <Box width='min-content' p={12}>
-              <HStack spacing={4}>
-                <Flex h={4}>
+          <Grid
+            gap={['16px', '16px', '0', '0']}
+            gridTemplateColumns={['1fr', '1fr', ' 250px 1fr', '250px 1fr']}
+          >
+
+            <Box pt={8} >
+              <HStack spacing={4} alignItems='flex-start' >
+                <Flex>
                   <MapPointIcon />
                 </Flex>
-                <Text whiteSpace='nowrap'>
-                  {router.query.address === 'baykonur'
-                    ? 'Байконурская, 15'
-                    : 'Приозерское шоссе, 130'
-                  }
-                </Text>
+                {router.query.address === 'baykonur' ? (
+                  <Text lineHeight={1}>СПб, Байконурская, 15</Text>
+                ) : (
+                  <Stack>
+                    <Text lineHeight={1}>д.Вартемяги,</Text>
+                    <Text lineHeight={1}>Приозерское шоссе, 130</Text>
+                  </Stack>
+                )}
               </HStack>
             </Box>
+
             <Box width='100%'>
               <AspectRatio ratio={16 / 9}>
                 <YMaps>
