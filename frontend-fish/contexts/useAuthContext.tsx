@@ -1,12 +1,14 @@
 import {createContext, useEffect, useState, FC, ReactNode, Dispatch, SetStateAction} from 'react';
 import {userType} from '../types';
-
+import { parseCookies } from 'nookies';
+import {getUser} from '../api/fetchData';
 
 type AuthContextType = {
   user: userType | null,
   setUser: Dispatch<SetStateAction<userType>>,
   isAuth: boolean,
   setIsAuth: Dispatch<SetStateAction<boolean>>,
+  token: string,
 }
 
 type AuthContextWrapperType = {
@@ -18,24 +20,28 @@ export const AuthContext = createContext<AuthContextType>({
   setUser: () => {},
   isAuth: false,
   setIsAuth: () => {},
+  token: null,
 });
 
 export const AuthContextWrapper:FC<AuthContextWrapperType> = ({ children }) => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [user, setUser] = useState<userType | null>(null);
+  const token = parseCookies(null, 'fish-auth-user')
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const user = localStorage.getItem("fish-user")
-      if (user) {
-        setIsAuth(true)
-        setUser(JSON.parse(user))
-      }
+    if (token['fish-auth-user']) {
+      getUser().then((res) => {
+        setIsAuth(true);
+        setUser(res);
+      })
+    } else {
+      setIsAuth(false);
+      setUser(null);
     }
-  }, [])
+    }, [])
 
   const context: AuthContextType = {
-    isAuth, setIsAuth, user, setUser
+    isAuth, setIsAuth, user, setUser, token: token['fish-auth-user'] || null
   }
 
   return (

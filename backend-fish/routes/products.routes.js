@@ -1,10 +1,9 @@
 const { Router } = require('express');
 const Products = require('../models/Products');
 const Images = require('../models/Images')
-const path = require("path");
 const router = Router();
 const isAdmin = require('../middleware/isAdmin.middleware')
-
+const copyFile = require('../utils/copyFile')
 
 // Получить все продукты - /api/v1/products
 router.get('/', async (req, res) => {
@@ -35,24 +34,8 @@ router.get('/:id', async (req, res) => {
 // Создать новый продукт - /api/v1/products
 router.post('/', isAdmin, async (req, res) => {
   try {
-    const pathLocal = path.resolve(path.join(__dirname, '../../'))
-    let fs = require('fs');
-
     //копируем изображение в папку images
-    fs.copyFile(pathLocal + '/upload/' + req.body.images, pathLocal + '/images/' + req.body.images, err => {
-      if(err) throw err; // не удалось скопировать файл
-      console.log('Файл успешно скопирован');
-
-      // удаляем все файлы из временной директории
-      fs.readdir(pathLocal + '/upload', (err, files) => {
-        if (err) throw err;
-        for (const file of files) {
-          fs.unlink(path.join(pathLocal + '/upload', file), err => {
-            if (err) throw err;
-          });
-        }
-      });
-    });
+    copyFile(req.body.images)
 
     // сохраняем название файла изображения в базе данных
     const newImages = new Images({ name: req.body.images })
@@ -74,12 +57,27 @@ router.post('/', isAdmin, async (req, res) => {
 
 // Изменить продукт - /api/v1/products/:id
 router.patch('/:id', async (req, res) => {
-
   const _id = req.params.id
   const product = req.body
 
   try {
-    const productUpdated = await Products.findOneAndUpdate(_id, product, { returnDocument: "after" })
+    // проверяем если обновляем image
+    const old = await Products.findOne({ _id })
+
+    if (old.images.toString() !== product.images) {
+      //копируем изображение в папку images
+      copyFile(req.body.images)
+
+      // сохраняем название файла изображения в базе данных
+      const newImages = new Images({ name: req.body.images })
+      await newImages.save()
+
+      // удаляем старое изображение из базы данных
+      await Products.deleteOne({ _id: old.images.toString() })
+      req.body.images = newImages._id
+    }
+
+    const productUpdated = await Products.findOneAndUpdate({ _id }, product, { returnDocument: "after" })
     res.status(200).json(productUpdated)
   } catch (e) {
     console.log(e)

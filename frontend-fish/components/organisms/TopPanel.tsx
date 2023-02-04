@@ -1,11 +1,11 @@
 import {FC} from 'react';
 import {useRouter} from "next/router";
-import {useBasket} from "../hooks/useBasket";
+import {useBasket} from "../../hooks/useBasket";
 import {ButtonGroup, Flex, IconButton, LinkBox, LinkOverlay, Spacer} from '@chakra-ui/react';
-import {BasketFullIcon} from '../ui/icons/BasketFullIcon';
-import {BasketIcon} from '../ui/icons/BasketIcon';
-import {BurgerIcon} from '../ui/icons/BurgerIcon';
-import {LogoFish} from '../ui/icons/Logo';
+import {BasketFullIcon} from '../../ui/icons/BasketFullIcon';
+import {BasketIcon} from '../../ui/icons/BasketIcon';
+import {BurgerIcon} from '../../ui/icons/BurgerIcon';
+import {LogoFish} from '../../ui/icons/Logo';
 import Link from 'next/link';
 
 type TopPanelType = {
@@ -19,7 +19,7 @@ export const TopPanel:FC<TopPanelType> = ({ onOpen }) => {
   return (
     <Flex py={[4, 8, 8, 8]} alignItems='center'>
       <LinkBox display={['block', 'block', 'block', 'none']}>
-        <Link href='/' passHref>
+        <Link href='/frontend-fish/pages' passHref>
           <LinkOverlay>
             <LogoFish height={56} />
           </LinkOverlay>

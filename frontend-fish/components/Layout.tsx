@@ -1,18 +1,19 @@
 import {FC, ReactNode, useRef} from 'react';
 import Head from 'next/head';
-import {TopPanel} from "./TopPanel";
+import {TopPanel} from "./organisms/TopPanel";
 import {
-  Box, Center, Container,
+  Box,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerOverlay,
-  Flex, HStack, Stack,
+  HStack,
+  Stack,
   useColorMode,
   useDisclosure,
 } from '@chakra-ui/react';
-import {SideMenu} from './SideMenu';
+import {SideMenu} from './molecules/SideMenu';
 
 
 type LayoutType = {
@@ -30,7 +31,7 @@ export const Layout:FC<LayoutType> = ({ children }) => {
       <Head>
         <title>Форель КАРЕЛИИ</title>
         <meta name="description" content="Всегда свежая форель в Санкт-Петербурге до парадной" />
-        <link rel="icon" href="/icons/fish.svg" />
+        <link rel="icon" href="/icons/favicon.ico" />
       </Head>
 
       <HStack spacing={[8, 8, 12, 12]} align='flex-start' mr={[8, 8, 12, 12]}>

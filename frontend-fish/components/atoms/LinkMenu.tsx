@@ -1,11 +1,11 @@
 import {FC, ReactNode} from "react";
 import LinkNext from 'next/link';
-import {Box, Flex, Link, ListItem} from '@chakra-ui/react';
-import {useRouter} from 'next/router';
+import {Box, Flex, Link, ListItem, Stack, Text} from '@chakra-ui/react';
 
 type LinkMenuType = {
   href: string,
   title: string,
+  subtitle?: string,
   icon: ReactNode,
   target?: "_blank",
   onCloseDrawer?: () => void,
@@ -13,13 +13,10 @@ type LinkMenuType = {
 }
 
 
-export const LinkMenu:FC<LinkMenuType> = ({ href, title, icon, target, onCloseDrawer, accent }) => {
-  const router = useRouter();
+export const LinkMenu:FC<LinkMenuType> = ({ href, title, subtitle, icon, target, onCloseDrawer, accent }) => {
 
-  console.log(router);
-  console.log(href);
   return (
-    <ListItem>
+    <ListItem pb={2}>
       <LinkNext href={href} passHref>
         <Link
           onClick={onCloseDrawer}
@@ -30,11 +27,12 @@ export const LinkMenu:FC<LinkMenuType> = ({ href, title, icon, target, onCloseDr
           }}
           color={accent && '#38BACC'}
         >
-          <Flex alignItems='center'>
+          <Flex >
             {icon}
-            <Box as='span' pl={3}>
-              {title}
-            </Box>
+            <Stack as='span' pl={3} lineHeight={1}>
+              <Text>{title}</Text>
+              <Text>{subtitle}</Text>
+            </Stack>
           </Flex>
         </Link>
       </LinkNext>

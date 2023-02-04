@@ -6,7 +6,7 @@ import {productType} from '../types';
 export const useBasket = () => {
   const { basketProducts, setBasketProducts } = useContext(BasketContext);
 
-  const addProduct: (product: productType) => void = (product) => {
+  const addProduct: (product) => void = (product) => {
     if (basketProducts.length === 0) {
       product.volume = 1;
       setBasketProducts([product]);

@@ -15,15 +15,26 @@ import {
   Text,
   StackDivider, Box, useToast,
 } from '@chakra-ui/react';
-import {Field, Form, Formik, FormikHelpers, FormikValues} from 'formik';
-import {CardProductBasket} from '../components/CardProductBasket';
-import {fetcher} from '../helpers/fetcher';
+import {Field, Form, Formik} from 'formik';
+import {CardProductBasket} from '../components/molecules/CardProductBasket';
 import {useRouter} from 'next/router';
+import {purchaseType} from '../types';
+import {useSWRConfig} from 'swr';
+import {createOrder} from '../api/fetchData';
+
+
+const initialValues: purchaseType = {
+  consumer: '',
+  phone: '',
+  address: '',
+};
 
 
 const BasketPage:FC = () => {
   const router = useRouter();
   const toast = useToast();
+  const { fetcher } = useSWRConfig()
+
   const { basketProducts, clearBasket } = useBasket();
   const [totalPriceBasket, setTotalPriceBasket] = useState<number>(0);
 
@@ -38,42 +49,34 @@ const BasketPage:FC = () => {
   }
 
   useEffect(() => {
-    setTotalPriceBasket(basketProducts.reduce((sum, item) => sum + item.volume * item.price, 0))
+    setTotalPriceBasket(basketProducts.reduce((sum, item) => sum + item.volume * +item.price, 0))
   }, [basketProducts])
 
 
 
-  const onSubmitForm:(values: FormikValues, formikHelpers: FormikHelpers<FormikValues>) => void = async (values, formikHelpers) => {
+  const onSubmitForm:(values: purchaseType) => void = async (values) => {
     const purchase = {
       ...values,
       products_basket: basketProducts,
       totalPriceBasket: totalPriceBasket
     };
 
-    const res = await fetcher(process.env.API_URL + "orders", {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json',},
-      body: JSON.stringify(purchase)
-    })
-    if (res.message) {
+    try {
+      await fetcher(createOrder, { method: 'POST', body: purchase } )
+    } catch (error) {
       toast({
-        position: 'bottom',
-        render: () => (
-          <Box color='white' p={3} bg='red.500'>
-            {res.message}
-          </Box>
-        ),
+        position: 'top',
+        render: () => <Box color='white' p={3} bg='red.500'>{error.message}</Box>,
       })
-      return
     }
-      clearBasket()
-      await router.push("/")
+    clearBasket()
+    await router.push("/")
   }
 
 
   return (
     <>
-      <Heading as='h1' size={['sm', 'md', 'lg', 'lg']}>ОФОРМЛЕНИЕ ЗАКАЗА</Heading>
+      <Heading as='h1' size='md'>ОФОРМЛЕНИЕ ЗАКАЗА</Heading>
 
       <Card variant='customCard' maxW='4xl'>
         <CardBody>
@@ -93,7 +96,7 @@ const BasketPage:FC = () => {
             <Stack spacing={8} p={[0, 0, 4, 4]}>
               <Stack divider={<StackDivider />} spacing={[2, 2, 8, 16]}>
                 {basketProducts.map((product) => (
-                  <CardProductBasket key={product._id} product={product} setTotalPriceBasket={setTotalPriceBasket} />
+                  <CardProductBasket key={product._id} product={product} setTotalPriceBasket={setTotalPriceBasket}/>
                 ))}
               </Stack>
 
@@ -102,12 +105,8 @@ const BasketPage:FC = () => {
               </Text>
 
               <Formik
-                initialValues={{
-                  consumer: '',
-                  phone: '',
-                  address: '',
-              }}
-                onSubmit={( values, formikHelpers) => onSubmitForm(values, formikHelpers)}
+                initialValues={initialValues}
+                onSubmit={( values) => onSubmitForm(values)}
               >
                 {(props) => (
                   <Form>
@@ -116,7 +115,7 @@ const BasketPage:FC = () => {
                         <Field name='consumer' validate={validateName}>
                           {({ field, form }) => (
                               <FormControl isInvalid={form.errors.consumer && form.touched.consumer}>
-                                <Input {...field} placeholder='Имя' variant='customInput'h={16}/>
+                                <Input {...field} placeholder='Имя' variant='customInput' h={16}/>
                                 <FormErrorMessage>{form.errors.consumer}</FormErrorMessage>
                               </FormControl>
                           )}
