@@ -39,6 +39,7 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
     } else {
       await router.push('/auth')
     }
+    onCloseDrawer();
   }
 
   return (
