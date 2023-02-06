@@ -1,5 +1,7 @@
 import {FC, useState} from 'react';
 import {Field, Form, Formik} from 'formik';
+import {useAuth} from '../../hooks/useAuth';
+
 import {
   Button,
   Flex,
@@ -10,34 +12,55 @@ import {
   InputRightElement,
   Stack,
 } from '@chakra-ui/react';
-import {useAuth} from '../../hooks/useAuth';
 
 
 export type FormValuesLogin = {
   email: string,
   password: string,
+  name?: string,
 }
 
 
 const initialValues: FormValuesLogin = {
   email: '',
-  password: ''
+  password: '',
+  name: '',
 };
 
 
 export const AuthForm:FC = () => {
-  const { onLogin } = useAuth();
+  const { onAuth } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
+
+  const validateName = (value) => {
+    let error
+    if (!value) {
+      error = 'Поле обязательно для заполнения'
+    }
+    return error
+  }
+
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values) => onLogin(values)}
+      onSubmit={async (values) => onAuth(values)}
     >
       {(props) => (
         <Form>
           <Stack spacing={8}>
-            <Field name='email'>
+            {isSignup && (
+              <Field name='name' validate={validateName}>
+                {({ field, form }) => (
+                  <FormControl isInvalid={form.errors.name && form.touched.name}>
+                    <Input {...field} placeholder='Имя' variant='Filled' size='lg' borderRadius='xl' />
+                    <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+            )}
+            <Field name='email' validate={validateName}>
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.email && form.touched.email}>
                   <Input {...field} placeholder='Email' variant='Filled' size='lg' borderRadius='xl' />
@@ -46,7 +69,7 @@ export const AuthForm:FC = () => {
               )}
             </Field>
 
-            <Field name='password'>
+            <Field name='password' validate={validateName}>
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.password && form.touched.password}>
                   <InputGroup size='lg'>
@@ -69,7 +92,17 @@ export const AuthForm:FC = () => {
               )}
             </Field>
 
-            <Flex justifyContent='flex-end'>
+            <Flex justifyContent='space-between'>
+              <Button
+                ml={4}
+                size='sm'
+                variant='link'
+                colorScheme='teal'
+                onClick={() => setIsSignup(!isSignup)}
+              >
+                {!isSignup ? 'Регистрация' : 'Вход'}
+              </Button>
+
               <Button
                 size='md'
                 variant='brandPrimary'
@@ -77,7 +110,7 @@ export const AuthForm:FC = () => {
                 isLoading={props.isSubmitting}
                 type='submit'
               >
-                Войти
+                {!isSignup ? 'Войти' : 'Зарегистрироваться'}
               </Button>
 
             </Flex>

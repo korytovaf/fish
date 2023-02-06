@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const path = require('path')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
+const bot = require('./routes/tg')
 
 
 const corsOptions = {
@@ -16,7 +17,7 @@ mongoose.connect(process.env.MONGO_DB, function (err) {
   if (err) {
     console.log('Ошибка подключения к MongoDB: ', err)
     throw err
-  };
+  }
   console.log('Подключился к MongoDB');
 });
 
@@ -48,6 +49,8 @@ const PORT = config.get('port') || 8000
 async function start() {
   try {
     app.listen(PORT, () => console.log(`Сервер запущен на порту: ${PORT}...`))
+    await bot.startPolling()
+
   } catch (e) {
     console.log('Server Error =>', e.message);
     process.exit(1)

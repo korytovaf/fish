@@ -1,6 +1,6 @@
 import {FC, ReactNode} from "react";
 import LinkNext from 'next/link';
-import {Box, Flex, Link, ListItem, Stack, Text} from '@chakra-ui/react';
+import {Grid, Link, ListItem, Stack, Text} from '@chakra-ui/react';
 
 type LinkMenuType = {
   href: string,
@@ -27,13 +27,13 @@ export const LinkMenu:FC<LinkMenuType> = ({ href, title, subtitle, icon, target,
           }}
           color={accent && '#38BACC'}
         >
-          <Flex >
+          <Grid templateColumns='20px auto' gap='8px'>
             {icon}
             <Stack as='span' pl={3} lineHeight={1}>
-              <Text>{title}</Text>
-              <Text>{subtitle}</Text>
+              <Text fontSize='md'>{title}</Text>
+              <Text fontSize='md'>{subtitle}</Text>
             </Stack>
-          </Flex>
+          </Grid>
         </Link>
       </LinkNext>
     </ListItem>

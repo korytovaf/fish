@@ -63,14 +63,14 @@ const About:FC = ()  => {
             <Box pt={8} >
               <HStack spacing={4} alignItems='flex-start' >
                 <Flex>
-                  <MapPointIcon />
+                  <MapPointIcon height={17} />
                 </Flex>
                 {router.query.address === 'baykonur' ? (
-                  <Text lineHeight={1}>СПб, Байконурская, 15</Text>
+                  <Text>СПб, Байконурская, 15</Text>
                 ) : (
                   <Stack>
-                    <Text lineHeight={1}>д.Вартемяги,</Text>
-                    <Text lineHeight={1}>Приозерское шоссе, 130</Text>
+                    <Text>д.Вартемяги,</Text>
+                    <Text>Приозерское шоссе, 130</Text>
                   </Stack>
                 )}
               </HStack>

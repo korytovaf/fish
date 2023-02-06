@@ -1,18 +1,21 @@
 import {FC} from 'react';
-import {Icon, useColorMode} from '@chakra-ui/react';
+import {useColorMode} from '@chakra-ui/react';
 
 type VkIconType = {
   active?: boolean,
+  width?: number | 16,
+  height?: number | 16,
 }
 
-export const VkIcon:FC<VkIconType> = ({ active }) => {
+export const VkIcon:FC<VkIconType> = ({ active, height, width }) => {
   const { colorMode } = useColorMode();
 
   return (
-    <Icon
+    <svg
+      width={width}
+      height={height}
       viewBox='0 0 548.358 548.358'
       fill={colorMode === 'dark' ? active ? '#38BACC' : '#ffffff' : active ? '#38BACC' : '#000000'}
-      transition='fill 0.2s'
     >
       <g>
         <path d="M545.451,400.298c-0.664-1.431-1.283-2.618-1.858-3.569c-9.514-17.135-27.695-38.167-54.532-63.102l-0.567-0.571
@@ -47,6 +50,6 @@ export const VkIcon:FC<VkIconType> = ({ active }) => {
 		c7.229,0,12.854-1.197,16.844-3.572c3.998-2.379,6.373-5,7.139-7.851c0.764-2.854,0.805-6.092,0.145-9.712
 		C546.782,404.25,546.115,401.725,545.451,400.298z"/>
       </g>
-    </Icon>
+    </svg>
   )
 }
