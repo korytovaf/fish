@@ -1,7 +1,7 @@
 import {AuthContext} from "../contexts/useAuthContext";
 import {useContext} from 'react';
 import {setCookie, destroyCookie} from 'nookies';
-import {loginEndpoint, onLoginApi} from '../api/fetchData';
+import {loginEndpoint, onLoginApi, onSignupApi} from '../api/fetchData';
 import {Box, useToast} from '@chakra-ui/react';
 import {FormValuesLogin} from '../components/molecules/AuthForm';
 import {useRouter} from 'next/router';
@@ -13,9 +13,15 @@ export const useAuth = () => {
   const toast = useToast();
   const { mutate } = useSWRConfig();
 
-  const onLogin = async (values: FormValuesLogin) => {
+  const onAuth = async (values: FormValuesLogin) => {
+    let res;
     try {
-      const res = await onLoginApi({ ...values });
+      if (values.name) {
+        res = await onSignupApi({ ...values });
+      } else {
+        res = await onLoginApi({ ...values });
+      }
+
       setCookie(null, 'fish-auth-user', res.token, {
         maxAge: 30 * 24 * 60 * 60,
         path: '/',
@@ -32,6 +38,7 @@ export const useAuth = () => {
     }
   }
 
+
   const logout: () => void = async () => {
     destroyCookie(null, 'fish-auth-user', {
       maxAge: 30 * 24 * 60 * 60,
@@ -43,6 +50,6 @@ export const useAuth = () => {
   }
 
   return {
-    onLogin, logout, user, isAuth
+    logout, user, isAuth, onAuth
   }
 }

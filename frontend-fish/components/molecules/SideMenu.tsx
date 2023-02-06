@@ -39,6 +39,7 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
     } else {
       await router.push('/auth')
     }
+    onCloseDrawer();
   }
 
   return (
@@ -53,28 +54,28 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
           <LinkMenu
             href='/'
             title='Главная'
-            icon={<HomeIcon active={router.asPath === '/'} />}
+            icon={<HomeIcon height={17} active={router.asPath === '/'} />}
             onCloseDrawer={onCloseDrawer}
             accent={router.asPath === '/'}
           />
           <LinkMenu
             href='/basket'
             title='Корзина'
-            icon={<BasketIcon height={15} active={router.asPath === '/basket'} />}
+            icon={<BasketIcon height={17} active={router.asPath === '/basket'} />}
             onCloseDrawer={onCloseDrawer}
             accent={router.asPath === '/basket'}
           />
           <LinkMenu
             href='/payment'
             title='Оплата'
-            icon={<WalletIcon active={router.asPath === '/payment'} />}
+            icon={<WalletIcon height={17} active={router.asPath === '/payment'} />}
             onCloseDrawer={onCloseDrawer}
             accent={router.asPath === '/payment'}
           />
           <LinkMenu
             href='/delivery'
             title='Доставка'
-            icon={<DeliveryIcon active={router.asPath === '/delivery'} />}
+            icon={<DeliveryIcon height={17} active={router.asPath === '/delivery'} />}
             onCloseDrawer={onCloseDrawer}
             accent={router.asPath === '/delivery'}
           />
@@ -87,28 +88,28 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
           <LinkMenu
             href='tel:+79533713839'
             title='+7 953 371 3839'
-            icon={<PhoneIcon />}
+            icon={<PhoneIcon height={17} />}
             onCloseDrawer={onCloseDrawer}
           />
           <LinkMenu
             href='https://telegram.im/@forelvpiter'
             target='_blank'
             title='Telegram'
-            icon={<TelegramIcon />}
+            icon={<TelegramIcon height={17} />}
             onCloseDrawer={onCloseDrawer}
           />
           <LinkMenu
             href='https://api.whatsapp.com/send/?phone=79533713839&text=Добрый+день, '
             target='_blank'
             title='WhatsApp'
-            icon={<WhatsAppIcon />}
+            icon={<WhatsAppIcon height={17} />}
             onCloseDrawer={onCloseDrawer}
           />
           <LinkMenu
             href='https://vk.com/forel_v_piter'
             target='_blank'
             title='forel_v_piter'
-            icon={<VkIcon />}
+            icon={<VkIcon height={17} />}
             onCloseDrawer={onCloseDrawer}
           />
         </List>
@@ -123,7 +124,7 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
           <LinkMenu
             href='/about?address=baykonur'
             title='СПб, Байконурская, 15'
-            icon={<MapPointIcon active={router.query.address === 'baykonur'} />}
+            icon={<MapPointIcon height={17} active={router.query.address === 'baykonur'} />}
             onCloseDrawer={() => [onCloseDrawer]}
             accent={router.query.address === 'baykonur'}
           />
@@ -131,7 +132,7 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
             href='/about?address=priosersk'
             title='д.Вартемяги,'
             subtitle='Приозерское шоссе, 130'
-            icon={<MapPointIcon active={router.query.address === 'priosersk'} />}
+            icon={<MapPointIcon height={17} active={router.query.address === 'priosersk'} />}
             onCloseDrawer={() => [onCloseDrawer]}
             accent={router.query.address === 'priosersk'}
           />
@@ -149,7 +150,7 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
         <IconButton
           size='sm'
           onClick={onAuth}
-          aria-label='Переключение темы'
+          aria-label='Авторизация/Регистрация'
           variant='customIconButton'
           icon={isAuth ? <LogoutIcon height={16} /> : <LoginIcon height={16} />}
         />

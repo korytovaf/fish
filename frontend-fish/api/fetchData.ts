@@ -7,6 +7,7 @@ const api = axios.create({
   baseURL: process.env.API_URL
 })
 
+export const signupEndpoint = 'auth/signup'
 export const loginEndpoint = 'auth/login'
 export const userEndpoint = 'auth/user'
 export const createOrder = 'orders'
@@ -14,6 +15,16 @@ export const productsEndpoint = 'products'
 export const uploadFileEndpoint = 'upload'
 
 const tokenCookie = parseCookies(null, 'fish-auth-user')
+
+export const onSignupApi: (data: FormValuesLogin) => Promise<userType> = async (data) => {
+  try {
+    const res = await api.post(signupEndpoint, data);
+    return res.data;
+  } catch (error) {
+    throw error.response.data
+  }
+}
+
 
 export const onLoginApi: (data: FormValuesLogin) => Promise<userType> = async (data) => {
   try {
