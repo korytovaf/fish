@@ -10,7 +10,7 @@ import {DeliveryIcon} from '../../ui/icons/DeliveryIcon';
 import {PhoneIcon} from '../../ui/icons/PhoneIcon';
 import {TelegramIcon} from '../../ui/icons/TelegramIcon';
 import {WhatsAppIcon} from '../../ui/icons/WhatsAppIcon';
-import {QrCodeTelegram} from '../../ui/icons/QrCodeTelegram';
+// import {QrCodeTelegram} from '../../ui/icons/QrCodeTelegram';
 import {MapPointIcon} from '../../ui/icons/MapPointIcon';
 import {SunIcon} from '../../ui/icons/SunIcon';
 import {MoonIcon} from '../../ui/icons/MoonIcon';
@@ -92,7 +92,7 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
             onCloseDrawer={onCloseDrawer}
           />
           <LinkMenu
-            href='https://telegram.im/@forelvpiter'
+            href='https://t.me/forelkareliispb'
             target='_blank'
             title='Telegram'
             icon={<TelegramIcon height={17} />}
@@ -113,9 +113,9 @@ export const SideMenu:FC<SideMenuType> = ({ onCloseDrawer }) => {
             onCloseDrawer={onCloseDrawer}
           />
         </List>
-        <Box width={24} height={24} mt={6}>
-          <QrCodeTelegram />
-        </Box>
+        {/*<Box width={24} height={24} mt={6}>*/}
+        {/*  <QrCodeTelegram />*/}
+        {/*</Box>*/}
       </Box>
 
       <Box pl={2}>

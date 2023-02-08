@@ -9,6 +9,7 @@ export interface createProductType {
   images: string,
   available: 'available' | 'unavailable',
   _id?: string,
+  fixedPrice: 'fixed' | 'notFixed',
 }
 
 export interface productType extends createProductType {

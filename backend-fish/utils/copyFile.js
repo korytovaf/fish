@@ -6,7 +6,7 @@ module.exports = (images) => {
   const pathLocal = path.resolve(path.join(__dirname, '../../'))
 
   fs.copyFile(pathLocal + '/upload/' + images, pathLocal + '/images/' + images, err => {
-    if(err) throw err; // не удалось скопировать файл
+    if(err) throw { message: 'не удалось скопировать файл', err: err }; // не удалось скопировать файл
     console.log('Файл успешно скопирован');
 
     // удаляем все файлы из временной директории

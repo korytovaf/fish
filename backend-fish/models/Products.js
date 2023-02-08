@@ -8,7 +8,8 @@ const schema = new Schema({
   description: { type: String, required: true },
   unit: { type: String, required: true },
   images: { type: ObjectId },
-  available: { type: String }
+  available: { type: String },
+  fixedPrice: { type: String },
 })
 
 module.exports = model('Products', schema, 'Products')

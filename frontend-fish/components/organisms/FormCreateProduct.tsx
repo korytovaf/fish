@@ -26,7 +26,8 @@ const initialValues: createProductType = {
   price: '',
   unit: 'кг',
   images: '',
-  available: 'available'
+  available: 'available',
+  fixedPrice: 'fixed'
 }
 
 
@@ -47,9 +48,10 @@ const AutoSubmitForm:FC<AutoSubmitFormType> = ({ setImages }) => {
         setFieldValue('description', res.description)
         setFieldValue('price', res.price)
         setFieldValue('unit', res.unit)
-        setFieldValue('images', res.images)
+        setFieldValue('images', res.images || '')
         setFieldValue('available', res.available)
-        setImages("images/" + res.images);
+        setFieldValue('fixedPrice', res.fixedPrice)
+        setImages(res.images ? "images/" + res.images : '');
       })();
     }
   }, [router])
@@ -74,7 +76,7 @@ export const FormCreateProduct:FC = () => {
     } catch (error) {
       toast({
         position: 'top',
-        render: () => <Box color='white' p={3} bg='red.500'>{error.messages}</Box>,
+        render: () => <Box color='white' p={3} bg='red.500'>{error?.messages}</Box>,
       })
     }
   }
@@ -87,6 +89,9 @@ export const FormCreateProduct:FC = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, actions) => {
+          if (!values.images) {
+            delete values.images
+          }
           try {
             if (router.query.id) {
               await updateProduct(`${router.query.id}`, {...values})
@@ -99,7 +104,7 @@ export const FormCreateProduct:FC = () => {
           } catch (error) {
             toast({
               position: 'top',
-              render: () => <Box color='white' p={3} bg='red.500'>{error.messages}</Box>,
+              render: () => <Box color='white' p={3} bg='red.500'>{error?.message}</Box>,
             })
           }
         }}
@@ -136,6 +141,26 @@ export const FormCreateProduct:FC = () => {
               </Field>
 
               <Stack spacing={4} pl={4}>
+
+                <Field name='fixedPrice'>
+                  {({ field }) => (
+                    <FormControl>
+                      <RadioGroup value={field.value}>
+                        <Stack direction='row'>
+                          <Radio
+                            {...field}
+                            value='fixed'
+                            checked={field.value === 'fixed'}
+                          >
+                            цена фиксированная
+                          </Radio>
+                          <Radio {...field} value='notFixed' checked={field.fixedPrice === 'notFixed'}>цена от</Radio>
+                        </Stack>
+                      </RadioGroup>
+                    </FormControl>
+                  )}
+                </Field>
+
                 <Field name='available'>
                   {({ field }) => (
                     <FormControl>

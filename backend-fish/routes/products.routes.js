@@ -35,14 +35,30 @@ router.get('/:id', async (req, res) => {
 router.post('/', isAdmin, async (req, res) => {
   try {
     //копируем изображение в папку images
-    copyFile(req.body.images)
+    if (req.body.images) {
+      copyFile(req.body.images)
+      // сохраняем название файла изображения в базе данных
+      const newImages = new Images({ name: req.body.images })
+      await newImages.save()
+      req.body.images = newImages._id
+    }
 
-    // сохраняем название файла изображения в базе данных
-    const newImages = new Images({ name: req.body.images })
-    await newImages.save()
+    if (!req.body.name) {
+      res.status(401).json({ message: 'Не задано название продукта' });
+      return;
+    }
+
+    if (!req.body.description) {
+      res.status(401).json({ message: 'Не задано описание продукта' });
+      return;
+    }
+
+    if (!req.body.price) {
+      res.status(401).json({ message: 'Не задана цена продукта' });
+      return;
+    }
 
     // сохраняем в базе новый продукт
-    req.body.images = newImages._id
     const newProduct = new Products(req.body)
     const product = await newProduct.save()
 
@@ -54,7 +70,6 @@ router.post('/', isAdmin, async (req, res) => {
 })
 
 
-
 // Изменить продукт - /api/v1/products/:id
 router.patch('/:id', async (req, res) => {
   const _id = req.params.id
@@ -64,17 +79,17 @@ router.patch('/:id', async (req, res) => {
     // проверяем если обновляем image
     const old = await Products.findOne({ _id })
 
-    if (old.images.toString() !== product.images) {
+    if (req.body.images && old.images?.toString() !== product.images) {
       //копируем изображение в папку images
       copyFile(req.body.images)
 
       // сохраняем название файла изображения в базе данных
       const newImages = new Images({ name: req.body.images })
       await newImages.save()
+      req.body.images = newImages._id
 
       // удаляем старое изображение из базы данных
-      await Products.deleteOne({ _id: old.images.toString() })
-      req.body.images = newImages._id
+      // await Images.deleteOne({ name: old.images.toString() })
     }
 
     const productUpdated = await Products.findOneAndUpdate({ _id }, product, { returnDocument: "after" })
