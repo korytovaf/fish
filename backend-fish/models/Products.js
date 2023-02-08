@@ -7,8 +7,9 @@ const schema = new Schema({
   price: { type: Number, required: true },
   description: { type: String, required: true },
   unit: { type: String, required: true },
-  images: { type: ObjectId },
-  available: { type: String }
+  images: { type: ObjectId | '' },
+  available: { type: String },
+  fixedPrice: { type: String },
 })
 
 module.exports = model('Products', schema, 'Products')

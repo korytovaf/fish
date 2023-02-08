@@ -21,6 +21,7 @@ import {useRouter} from 'next/router';
 import {purchaseType} from '../types';
 import {useSWRConfig} from 'swr';
 import {createOrder} from '../api/fetchData';
+import {divideNumberByPieces} from '../helpers/divideNumberByPieces';
 
 
 const initialValues: purchaseType = {
@@ -83,7 +84,7 @@ const BasketPage:FC = () => {
           <Flex px={4} py={[0, 0, 1, 2]} alignItems='center'>
             <Text fontSize={['md', 'md', 'xl', '2xl']}>ИТОГО</Text>
             <Spacer />
-            <Text fontSize={['lg', 'lg', '2xl', '4xl']}>{`${totalPriceBasket} ₽`}</Text>
+            <Text fontSize={['lg', 'lg', '2xl', '4xl']}>{`${divideNumberByPieces(totalPriceBasket)} ₽`}</Text>
           </Flex>
         </CardBody>
       </Card>

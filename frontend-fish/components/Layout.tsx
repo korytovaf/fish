@@ -48,7 +48,7 @@ export const Layout:FC<LayoutType> = ({ children }) => {
             ? 'linear(180deg, #101010 0%, rgba(16, 16, 16, 0) 100%)'
             : 'linear(180deg, #F7F7F7 0%, rgba(225, 225, 225, 0) 100%)'}
         >
-          <SideMenu />
+          <SideMenu onCloseDrawer={onClose} />
           <Drawer
             colorScheme='orange'
             isOpen={isOpen}

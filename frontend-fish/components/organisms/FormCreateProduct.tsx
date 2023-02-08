@@ -26,7 +26,8 @@ const initialValues: createProductType = {
   price: '',
   unit: 'кг',
   images: '',
-  available: 'available'
+  available: 'available',
+  fixedPrice: 'fixed'
 }
 
 
@@ -47,8 +48,9 @@ const AutoSubmitForm:FC<AutoSubmitFormType> = ({ setImages }) => {
         setFieldValue('description', res.description)
         setFieldValue('price', res.price)
         setFieldValue('unit', res.unit)
-        setFieldValue('images', res.images)
+        setFieldValue('images', res.images || '')
         setFieldValue('available', res.available)
+        setFieldValue('fixedPrice', res.fixedPrice)
         setImages("images/" + res.images);
       })();
     }
@@ -74,13 +76,13 @@ export const FormCreateProduct:FC = () => {
     } catch (error) {
       toast({
         position: 'top',
-        render: () => <Box color='white' p={3} bg='red.500'>{error.messages}</Box>,
+        render: () => <Box color='white' p={3} bg='red.500'>{error?.messages}</Box>,
       })
     }
   }
 
   const imageUrl = process.env.API_URL + images;
-
+  console.log(images);
   return (
     <Card variant='customCard' maxW='xl'>
 
@@ -99,7 +101,7 @@ export const FormCreateProduct:FC = () => {
           } catch (error) {
             toast({
               position: 'top',
-              render: () => <Box color='white' p={3} bg='red.500'>{error.messages}</Box>,
+              render: () => <Box color='white' p={3} bg='red.500'>{error?.message}</Box>,
             })
           }
         }}
@@ -136,6 +138,26 @@ export const FormCreateProduct:FC = () => {
               </Field>
 
               <Stack spacing={4} pl={4}>
+
+                <Field name='fixedPrice'>
+                  {({ field }) => (
+                    <FormControl>
+                      <RadioGroup value={field.value}>
+                        <Stack direction='row'>
+                          <Radio
+                            {...field}
+                            value='fixed'
+                            checked={field.value === 'fixed'}
+                          >
+                            цена фиксированная
+                          </Radio>
+                          <Radio {...field} value='notFixed' checked={field.fixedPrice === 'notFixed'}>цена от</Radio>
+                        </Stack>
+                      </RadioGroup>
+                    </FormControl>
+                  )}
+                </Field>
+
                 <Field name='available'>
                   {({ field }) => (
                     <FormControl>

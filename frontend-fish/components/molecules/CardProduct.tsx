@@ -7,6 +7,8 @@ import {WalletIcon} from '../../ui/icons/WalletIcon';
 import {CheckedIcon} from '../../ui/icons/CheckedIcon';
 import {deleteProduct, productsEndpoint} from '../../api/fetchData';
 import {AuthContext} from '../../contexts/useAuthContext';
+import {divideNumberByPieces} from '../../helpers/divideNumberByPieces';
+import trout from '../../images/trout.png'
 import {
   Card,
   Button,
@@ -31,7 +33,7 @@ export const CardProduct:FC<CardType> = ({ product }) => {
   const {user} = useContext(AuthContext);
   const router = useRouter();
   const { data, mutate } = useSWR<productType[]>(productsEndpoint);
-  const imageUrl = process.env.API_URL + "images/" + product.images;
+  const imageUrl = product.images ?  process.env.API_URL + "images/" + product.images : trout.src;
   const { addProduct, basketProducts } = useBasket();
   const [basketProductVolume, setBasketProductVolume] = useState(null);
 
@@ -70,7 +72,7 @@ export const CardProduct:FC<CardType> = ({ product }) => {
             <Heading size='sm'>{product.name}</Heading>
             <Text fontSize='sm'>{product.description}</Text>
             <Text fontSize='2xl'>
-              {`${product.price} ₽ / ${product.unit}`}
+              {`${product.fixedPrice === 'fixed' ? '' : 'от'} ${divideNumberByPieces(product.price)} ₽ / ${product.unit}`}
             </Text>
           </Stack>
         </Flex>
@@ -90,7 +92,8 @@ export const CardProduct:FC<CardType> = ({ product }) => {
           </Flex>
           <Flex width='100%' justifyContent='flex-end'>
             <Button
-              rightIcon={basketProductVolume ? <CheckedIcon width={16} height={16} fill='#ffffff' /> : <WalletIcon fill='#ffffff' />}
+              isDisabled={product.available === 'unavailable'}
+              rightIcon={basketProductVolume ? <CheckedIcon width={16} height={16} fill='#ffffff' /> : <WalletIcon width={16} height={16} fill='#ffffff' />}
               variant='brandPrimary'
               colorScheme='blue'
               onClick={addProductToBasket}
