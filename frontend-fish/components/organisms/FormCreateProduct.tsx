@@ -51,7 +51,7 @@ const AutoSubmitForm:FC<AutoSubmitFormType> = ({ setImages }) => {
         setFieldValue('images', res.images || '')
         setFieldValue('available', res.available)
         setFieldValue('fixedPrice', res.fixedPrice)
-        setImages("images/" + res.images);
+        setImages(res.images ? "images/" + res.images : '');
       })();
     }
   }, [router])
@@ -82,13 +82,16 @@ export const FormCreateProduct:FC = () => {
   }
 
   const imageUrl = process.env.API_URL + images;
-  console.log(images);
+
   return (
     <Card variant='customCard' maxW='xl'>
 
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, actions) => {
+          if (!values.images) {
+            delete values.images
+          }
           try {
             if (router.query.id) {
               await updateProduct(`${router.query.id}`, {...values})

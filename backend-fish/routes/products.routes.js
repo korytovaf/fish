@@ -79,7 +79,7 @@ router.patch('/:id', async (req, res) => {
     // проверяем если обновляем image
     const old = await Products.findOne({ _id })
 
-    if (req.body.images && old.images.toString() !== product.images) {
+    if (req.body.images && old.images?.toString() !== product.images) {
       //копируем изображение в папку images
       copyFile(req.body.images)
 
