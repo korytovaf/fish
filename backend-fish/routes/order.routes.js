@@ -77,7 +77,7 @@ router.post('/', async (req, res) => {
     if (order) {
       const listProducts = []
       order.products_basket.map((item, index )=> {
-        const text = `${index + 1}. ${item.name} - ${item.volume}${item.unit}`
+        const text = `${index + 1}. ${item.name} (${item.price}) - ${item.volume}${item.unit}`
         listProducts.push(text)
       })
       const messages =
