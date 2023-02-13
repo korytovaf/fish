@@ -23,6 +23,8 @@ import {
   Tag
 } from '@chakra-ui/react';
 
+import ym from 'react-yandex-metrika';
+
 
 type CardType = {
   product: productType,
@@ -52,6 +54,7 @@ export const CardProduct:FC<CardType> = ({ product }) => {
   const addProductToBasket = () => {
     addProduct(product);
     addedVolumeProduct();
+    ym('92454457','reachGoal','ADDED_BASKET');
   }
 
   const onRemoveProduct = async () => {
