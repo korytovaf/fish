@@ -31,6 +31,7 @@ export const Layout:FC<LayoutType> = ({ children }) => {
       <Head>
         <title>Форель КАРЕЛИИ</title>
         <meta name="description" content="Всегда свежая форель в Санкт-Петербурге до парадной" />
+        <meta name="yandex-verification" content="c5f24a1fd48d9921" />
         <link rel="icon" href="/icons/favicon.ico" />
       </Head>
 
